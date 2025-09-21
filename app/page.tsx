@@ -1,14 +1,18 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
+
+type Theme = "light" | "dark";
 
 // Custom theme hook
 const useTheme = () => {
-  const getInitialTheme = () => {
+  const getInitialTheme = (): Theme => {
     if (typeof window !== "undefined" && window.localStorage) {
       const storedTheme = window.localStorage.getItem("theme");
       return (
-        storedTheme ||
+        (storedTheme as Theme) ||
         (window.matchMedia("(prefers-color-scheme: dark)").matches
           ? "dark"
           : "light")
@@ -17,9 +21,9 @@ const useTheme = () => {
     return "light";
   };
 
-  const [theme, setTheme] = useState(getInitialTheme);
+  const [theme, setTheme] = useState<Theme>(getInitialTheme);
 
-  const rawSetTheme = (newTheme) => {
+  const rawSetTheme = (newTheme: Theme) => {
     const root = window.document.documentElement;
     const isDark = newTheme === "dark";
 
@@ -33,7 +37,7 @@ const useTheme = () => {
     rawSetTheme(theme);
   }, [theme]);
 
-  return [theme, setTheme];
+  return [theme, setTheme] as const;
 };
 
 const App = () => {
@@ -64,29 +68,29 @@ const App = () => {
       {/* Navbar */}
       <nav className={`fixed top-0 left-0 w-full z-30 transition-colors duration-300 ${navBg} backdrop-blur-sm`}>
         <div className="max-w-6xl mx-auto flex justify-between items-center px-4 py-3">
-          <a
+          <Link
             href="#home"
             className="text-xl font-bold text-white drop-shadow dark:text-gray-100"
           >
             LA Mesh
-          </a>
+          </Link>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-6 items-center text-white dark:text-gray-100 font-medium">
             
-            <a
+            <Link
               href="/"
               className="hover:text-indigo-300 transition"
             >
               Home
-            </a>
+            </Link>
 
-            <a
+            <Link
               href="/links"
               className="hover:text-indigo-300 transition"
             >
               Links
-            </a>
+            </Link>
 
             <a
               href="https://discord.louisianamesh.org"
@@ -112,16 +116,20 @@ const App = () => {
               className="ml-4 p-2 rounded-full bg-white/20 hover:bg-white/30 dark:bg-gray-700/50 text-white shadow transition-transform duration-300 hover:scale-110"
             >
               {theme === "dark" ? (
-                <img
+                <Image
                   className="h-5 w-5"
                   src="https://www.svgrepo.com/show/508131/moon.svg"
                   alt="Moon"
+                  width={20}
+                  height={20}
                 />
               ) : (
-                <img
+                <Image
                   className="h-5 w-5"
                   src="https://www.svgrepo.com/show/535669/sun.svg"
                   alt="Sun"
+                  width={20}
+                  height={20}
                 />
               )}
             </button>
@@ -223,10 +231,12 @@ const App = () => {
               rel="noopener noreferrer"
             >
               Join Our Discord
-              <img
+              <Image
                 className="h-5 w-5 invert"
                 src="https://www.svgrepo.com/show/506463/discord.svg"
                 alt="Discord Logo"
+                width={20}
+                height={20}
               />
             </a>
 
@@ -236,7 +246,7 @@ const App = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Meshtastic.org <span className="font-mono">//\</span>
+              Meshtastic.org <span className="font-mono"></span>
             </a>
           </div>
         </div>
@@ -258,10 +268,10 @@ const App = () => {
             <br />
             <br />
             We are based in Louisiana and share a love for exploring and
-            expanding the state's mesh networks.
+            expanding the state&apos;s mesh networks.
             <br />
             <br />
-            Whether you're new to the world of mesh communication or an
+            Whether you&apos;re new to the world of mesh communication or an
             experienced user, everyone is welcome to join and contribute to the
             community.
           </p>
@@ -299,7 +309,6 @@ const App = () => {
         </div>
       </section>
 
-
       {/* Footer */}
       <footer className="flex flex-col items-center gap-3 py-6 bg-gray-900 text-gray-400 dark:text-gray-300">
         <span className="text-sm">
@@ -311,10 +320,12 @@ const App = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <img
+          <Image
             className="h-6 w-6 invert"
             src="https://www.svgrepo.com/show/512317/github-142.svg"
             alt="GitHub Logo"
+            width={24}
+            height={24}
           />
         </a>
       </footer>
