@@ -95,8 +95,8 @@ const App: React.FC = () => {
       {/* New section with "What is Louisiana Mesh?" and about text */}
       <div className="bg-blue-200 dark:bg-gray-800 text-gray-800 dark:text-white py-16 px-4 transition-colors duration-300">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-6">What is Louisiana Mesh?</h2>
-          <p className="text-lg sm:text-xl text-center leading-relaxed">
+          <h2 className="text-3xl sm:text-3xl font-bold text-left mb-2">What is Louisiana Mesh?</h2>
+          <p className="text-lg sm:text-xl text-left leading-relaxed">
 The Louisiana Mesh Community is a growing group of individuals who share a common interest in Meshtastic, Meshcore, and other types of mesh radio networks.
 
 We are based in Louisiana and share a love for exploring and expanding the state's mesh networks. 
@@ -104,6 +104,32 @@ We are based in Louisiana and share a love for exploring and expanding the state
 Whether you're new to the world of mesh communication or an experienced user, everyone is welcome to join and contribute to the community. 
           </p>
         </div>
+      </div>
+      {/* New section with "What is Meshtastic?" and about text */}
+      <div className="bg-orange-200 dark:bg-gray-800 text-gray-800 dark:text-white py-16 px-4 transition-colors duration-300">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl sm:text-3xl font-bold text-left mb-2">What is Meshtastic?</h2>
+          <p className="text-lg sm:text-xl text-left leading-relaxed">
+Meshtastic is a decentralized, open-source communication protocol that establishes a mesh network using low-power, long-range radio LORA technology. It allows devices to send and receive text messages without relying on the internet, cellular networks, or any centralized infrastructure.
+          </p>
+        </div>
+      </div>
+
+{/* Footer with copyright and github link, updated for dark mode */}
+      <div className="flex flex-col sm:flex-row items-center justify-end px-4 py-2 bg-gray-900 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+        <span className="text-sm font-italic mb-2 sm:mb-0 sm:mr-4 text-white">&copy; {new Date().getFullYear()} Louisiana Mesh Community</span>
+        <a 
+          href="https://www.svgrepo.com/show/512317/github-142.svg"
+          className="flex items-center space-x-2"
+          target="_blank" 
+          rel="noopener noreferrer"
+        >
+          <img 
+            className="h-5 w-5 filter invert" 
+            src="https://www.svgrepo.com/show/512317/github-142.svg" 
+            alt="GitHub Logo" 
+          />
+        </a>
       </div>
     </>
   );
