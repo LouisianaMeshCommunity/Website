@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "description": "Louisiana Mesh Community Website",
-  "homepage": "https://github.com/LouisianaMeshCommunity/Website#readme",
+  "homepage": "http://localhost:3001/LouisianaMeshCommunity/Website",
   "bugs": {
     "url": "https://github.com/LouisianaMeshCommunity/Website/issues"
   },
@@ -24,7 +24,7 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1"
+    "react-scripts": "^0.0.0"
   },
   "devDependencies": {
     "jest": "^27.5.1"
