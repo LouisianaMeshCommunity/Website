@@ -19,7 +19,7 @@ const useTheme = () => {
 
   const [theme, setTheme] = useState(getInitialTheme);
 
-  const rawSetTheme = (newTheme: string) => {
+  const rawSetTheme = (newTheme) => {
     const root = window.document.documentElement;
     const isDark = newTheme === "dark";
 
@@ -33,17 +33,36 @@ const useTheme = () => {
     rawSetTheme(theme);
   }, [theme]);
 
-  return [theme, setTheme] as const;
+  return [theme, setTheme];
 };
 
-const App: React.FC = () => {
+const App = () => {
   const [theme, setTheme] = useTheme();
   const [navOpen, setNavOpen] = useState(false);
+  const [navBg, setNavBg] = useState("bg-transparent");
+
+  // Handle scroll event to change the navbar background
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setNavBg("bg-gray-900");
+      } else {
+        setNavBg("bg-transparent");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    // Cleanup function to remove the event listener
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []); // Empty dependency array ensures this effect runs once
 
   return (
     <>
       {/* Navbar */}
-      <nav className="fixed top-0 left-0 w-full z-30 bg-transparent backdrop-blur-sm">
+      <nav className={`fixed top-0 left-0 w-full z-30 transition-colors duration-300 ${navBg} backdrop-blur-sm`}>
         <div className="max-w-6xl mx-auto flex justify-between items-center px-4 py-3">
           <a
             href="#home"
@@ -56,12 +75,17 @@ const App: React.FC = () => {
           <div className="hidden md:flex space-x-6 items-center text-white dark:text-gray-100 font-medium">
             
             <a
-              href="https://louisianamesh.org"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/"
               className="hover:text-indigo-300 transition"
             >
               Home
+            </a>
+
+            <a
+              href="/links"
+              className="hover:text-indigo-300 transition"
+            >
+              Links
             </a>
 
             <a
@@ -261,6 +285,20 @@ const App: React.FC = () => {
           </p>
         </div>
       </section>
+
+      <section
+        id="join-us"
+        className="bg-gradient-to-br from-green-100 to-green-200 dark:from-gray-800 dark:to-gray-900 text-green-800 dark:text-green-300 py-20 px-6"
+      >
+        <div className="max-w-4xl mx-auto bg-white/70 dark:bg-gray-800/70 p-8 rounded-2xl shadow-lg backdrop-blur-sm">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-0">
+            <a href="https://discord.louisianamesh.org" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-300 transition">
+              Join us on Discord
+            </a>
+          </h2>
+        </div>
+      </section>
+
 
       {/* Footer */}
       <footer className="flex flex-col items-center gap-3 py-6 bg-gray-900 text-gray-400 dark:text-gray-300">
