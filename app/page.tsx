@@ -111,7 +111,7 @@ const App = () => {
 
             {/* Theme Toggle */}
             <button
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              onClick={() => setTheme(theme === "dark" ? "light" : "light")}
               aria-label="Toggle theme"
               className="ml-4 p-2 rounded-full bg-white/20 hover:bg-white/30 dark:bg-gray-700/50 text-white shadow transition-transform duration-300 hover:scale-110"
             >
