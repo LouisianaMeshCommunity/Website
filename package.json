@@ -1,17 +1,33 @@
 {
-  "name": "website",
+  "name": "louisianameshcommunity",
   "version": "1.0.0",
   "private": true,
-  "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1"
+  "description": "Louisiana Mesh Community Website",
+  "homepage": "https://github.com/LouisianaMeshCommunity/Website#readme",
+  "bugs": {
+    "url": "https://github.com/LouisianaMeshCommunity/Website/issues"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LouisianaMeshCommunity/Website.git"
+  },
+  "license": "ISC",
+  "author": "Lenley Ngo",
+  "type": "commonjs",
+  "main": "index.jsx",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1"
+  },
+  "devDependencies": {
+    "jest": "^27.5.1"
   },
   "eslintConfig": {
     "extends": [
