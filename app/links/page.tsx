@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+// ---------------- THEME HOOK ----------------
 type Theme = "light" | "dark";
 
-// ---------------- THEME HOOK ----------------
 const useTheme = () => {
   const getInitialTheme = (): Theme => {
     if (typeof window !== "undefined" && window.localStorage) {
@@ -43,7 +43,7 @@ const useTheme = () => {
 // ---------------- NAVBAR ----------------
 type NavbarProps = {
   theme: Theme;
-  setTheme: Dispatch<SetStateAction<Theme>>;
+  setTheme: React.Dispatch<React.SetStateAction<Theme>>;
 };
 
 const Navbar = ({ theme, setTheme }: NavbarProps) => {
@@ -194,7 +194,7 @@ interface LinkItem {
   title: string;
   description: string;
   url: string;
-  icon: JSX.Element;
+  icon: React.ReactNode;
 }
 
 // --- LINKS PAGE COMPONENT ---
