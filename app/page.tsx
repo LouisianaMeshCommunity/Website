@@ -1,138 +1,285 @@
-"use client"; 
+"use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-// A custom hook to manage the theme state and persistence.
+// Custom theme hook
 const useTheme = () => {
   const getInitialTheme = () => {
-    if (typeof window !== 'undefined' && window.localStorage) {
-      const storedTheme = window.localStorage.getItem('theme');
-      return storedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    if (typeof window !== "undefined" && window.localStorage) {
+      const storedTheme = window.localStorage.getItem("theme");
+      return (
+        storedTheme ||
+        (window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light")
+      );
     }
-    return 'light';
+    return "light";
   };
 
   const [theme, setTheme] = useState(getInitialTheme);
 
-  const rawSetTheme = (newTheme) => {
+  const rawSetTheme = (newTheme: string) => {
     const root = window.document.documentElement;
-    const isDark = newTheme === 'dark';
+    const isDark = newTheme === "dark";
 
-    root.classList.remove(isDark ? 'light' : 'dark');
-    root.classList.add(isDark ? 'dark' : 'light'); // Fixed variable name
+    root.classList.remove(isDark ? "light" : "dark");
+    root.classList.add(isDark ? "dark" : "light");
 
-    window.localStorage.setItem('theme', newTheme);
+    window.localStorage.setItem("theme", newTheme);
   };
 
   useEffect(() => {
     rawSetTheme(theme);
   }, [theme]);
 
-  return [theme, setTheme];
+  return [theme, setTheme] as const;
 };
 
-// The main component for the page.
 const App: React.FC = () => {
   const [theme, setTheme] = useTheme();
+  const [navOpen, setNavOpen] = useState(false);
 
   return (
-    // Use a React Fragment to render multiple top-level elements
     <>
-      {/* Outer container for the background image and content */}
-      <div 
-        className="min-h-screen flex flex-col items-center justify-center p-4 bg-cover bg-center bg-no-repeat bg-fixed" 
-        style={{
-          backgroundImage: `url("/files/images/banner.jpg")`,
-        }}
-      >
-        {/* Semi-transparent overlay for better text readability */}
-        <div className="absolute inset-0 bg-black opacity-50"></div>
-        
-        {/* Theme toggle button */}
-        <div className="absolute top-4 right-4 z-20">
-          <button 
-            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            className="p-2 rounded-full bg-white dark:bg-gray-600 text-gray-600 dark:text-white shadow-lg transition-colors duration-500 ease-in-out transform hover:scale-110"
+      {/* Navbar */}
+      <nav className="fixed top-0 left-0 w-full z-30 bg-transparent backdrop-blur-sm">
+        <div className="max-w-6xl mx-auto flex justify-between items-center px-4 py-3">
+          <a
+            href="#home"
+            className="text-xl font-bold text-white drop-shadow dark:text-gray-100"
           >
-            {theme === 'dark' ? (
-              // Moon icon
-              <img className="h-5 w-5" src="https://www.svgrepo.com/show/508131/moon.svg" alt="Discord Logo" />
+            LA Mesh
+          </a>
+
+          {/* Desktop Menu */}
+          <div className="hidden md:flex space-x-6 items-center text-white dark:text-gray-100 font-medium">
+            
+            <a
+              href="https://louisianamesh.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-indigo-300 transition"
+            >
+              Home
+            </a>
+
+            <a
+              href="https://discord.louisianamesh.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-indigo-300 transition"
+            >
+              Discord
+            </a>
+            <a
+              href="https://github.com/LouisianaMeshCommunity"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-indigo-300 transition"
+            >
+              GitHub
+            </a>
+
+            {/* Theme Toggle */}
+            <button
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              aria-label="Toggle theme"
+              className="ml-4 p-2 rounded-full bg-white/20 hover:bg-white/30 dark:bg-gray-700/50 text-white shadow transition-transform duration-300 hover:scale-110"
+            >
+              {theme === "dark" ? (
+                <img
+                  className="h-5 w-5"
+                  src="https://www.svgrepo.com/show/508131/moon.svg"
+                  alt="Moon"
+                />
+              ) : (
+                <img
+                  className="h-5 w-5"
+                  src="https://www.svgrepo.com/show/535669/sun.svg"
+                  alt="Sun"
+                />
+              )}
+            </button>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setNavOpen(!navOpen)}
+            aria-label="Toggle navigation"
+            className="md:hidden p-2 rounded-lg text-white hover:bg-white/20 transition"
+          >
+            {navOpen ? (
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
             ) : (
-              // Sun icon
-              <img className="h-5 w-5" src="https://www.svgrepo.com/show/535669/sun.svg" alt="Discord Logo" />
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
             )}
           </button>
         </div>
-        
-        {/* Content container, positioned on top of the overlay */}
-        <div className="relative z-10 flex flex-col items-center justify-center w-full">
-          <h1 className="text-4xl sm:text-5xl font-bold font-italic text-white text-center mb-8">Louisiana Mesh Community</h1>
-          <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-            {/* Discord Button */}
-            <a 
-              href="https://discord.louisianamesh.org" 
-              className="flex items-center justify-center inspace-x-2 bg-indigo-500 text-white font-italic py-3 px-8 rounded-lg shadow-md hover:bg-indigo-700 transition duration-300 transform hover:scale-105"
-              target="_blank" 
+
+        {/* Mobile Dropdown */}
+        {navOpen && (
+          <div className="md:hidden bg-black/70 text-white px-4 py-3 space-y-2 backdrop-blur-sm">
+            <a href="#home" onClick={() => setNavOpen(false)}>Home</a>
+            <a href="#about" onClick={() => setNavOpen(false)}>About</a>
+            <a href="#meshtastic" onClick={() => setNavOpen(false)}>Meshtastic</a>
+            <a
+              href="https://discord.louisianamesh.org"
+              target="_blank"
               rel="noopener noreferrer"
+              className="block"
+              onClick={() => setNavOpen(false)}
             >
-              <span>Join Our Discord&nbsp; </span>
-              <img className="h-5 w-5 invert" src="https://www.svgrepo.com/show/506463/discord.svg" alt="Discord Logo" />
+              Discord
             </a>
-    
-    
-            {/* Meshtastic.org Button */}
-            <a 
-              href="https://meshtastic.org/" 
-              className="flex items-center justify-center space-x-2 bg-emerald-500 text-white font-italic py-3 px-8 rounded-lg shadow-md hover:bg-emerald-700 transition duration-300 transform hover:scale-105"
-              target="_blank" 
+            <a
+              href="https://github.com/LouisianaMeshCommunity/Website"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block"
+              onClick={() => setNavOpen(false)}
+            >
+              GitHub
+            </a>
+            <button
+              onClick={() => {
+                setTheme(theme === "dark" ? "light" : "dark");
+                setNavOpen(false);
+              }}
+              className="mt-3 p-2 rounded-lg bg-white/20 hover:bg-white/30"
+            >
+              {theme === "dark" ? "Light Mode" : "Dark Mode"}
+            </button>
+          </div>
+        )}
+      </nav>
+
+      {/* Hero Section */}
+      <div
+        id="home"
+        className="relative min-h-screen flex flex-col items-center justify-center px-4 bg-cover bg-center bg-no-repeat bg-fixed"
+        style={{ backgroundImage: `url("/files/images/banner.jpg")` }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/30 backdrop-blur-sm"></div>
+
+        <div className="relative z-10 flex flex-col items-center justify-center w-full text-center mt-20">
+          <h1 className="text-5xl sm:text-6xl font-extrabold tracking-tight text-white drop-shadow-lg mb-8">
+            Louisiana Mesh Community
+          </h1>
+
+          <div className="flex flex-col sm:flex-row gap-4">
+            <a
+              href="https://discord.louisianamesh.org"
+              className="flex items-center justify-center gap-2 bg-gradient-to-r from-indigo-400 to-indigo-600 text-white font-semibold py-3 px-8 rounded-xl shadow-md hover:scale-105 hover:shadow-xl transition"
+              target="_blank"
               rel="noopener noreferrer"
             >
-              <span>Meshtastic.org</span> 
-              <span className="font-mono">//\</span>
+              Join Our Discord
+              <img
+                className="h-5 w-5 invert"
+                src="https://www.svgrepo.com/show/506463/discord.svg"
+                alt="Discord Logo"
+              />
+            </a>
+
+            <a
+              href="https://meshtastic.org/"
+              className="flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-400 to-emerald-600 text-white font-semibold py-3 px-8 rounded-xl shadow-md hover:scale-105 hover:shadow-xl transition"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Meshtastic.org <span className="font-mono">//\</span>
             </a>
           </div>
         </div>
       </div>
 
-      {/* New section with "What is Louisiana Mesh?" and about text */}
-      <div className="bg-blue-200 dark:bg-gray-800 text-gray-800 dark:text-white py-16 px-4 transition-colors duration-300">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl sm:text-3xl font-bold text-left mb-2">What is Louisiana Mesh?</h2>
-          <p className="text-lg sm:text-xl text-left leading-relaxed">
-The Louisiana Mesh Community is a growing group of individuals who share a common interest in Meshtastic, Meshcore, and other types of mesh radio networks.
-
-We are based in Louisiana and share a love for exploring and expanding the state's mesh networks. 
-<br/><br/>
-Whether you're new to the world of mesh communication or an experienced user, everyone is welcome to join and contribute to the community. 
+      {/* Info Sections */}
+      <section
+        id="about"
+        className="bg-gradient-to-br from-blue-100 to-blue-200 dark:from-gray-800 dark:to-gray-900 text-gray-800 dark:text-gray-100 py-20 px-6"
+      >
+        <div className="max-w-4xl mx-auto bg-white/70 dark:bg-gray-800/70 p-8 rounded-2xl shadow-lg backdrop-blur-sm">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+            What is Louisiana Mesh?
+          </h2>
+          <p className="text-lg leading-relaxed">
+            The Louisiana Mesh Community is a growing group of individuals who
+            share a common interest in Meshtastic, Meshcore, and other types of
+            mesh radio networks.
+            <br />
+            <br />
+            We are based in Louisiana and share a love for exploring and
+            expanding the state's mesh networks.
+            <br />
+            <br />
+            Whether you're new to the world of mesh communication or an
+            experienced user, everyone is welcome to join and contribute to the
+            community.
           </p>
         </div>
-      </div>
-      {/* New section with "What is Meshtastic?" and about text */}
-      <div className="bg-orange-200 dark:bg-gray-800 text-gray-800 dark:text-white py-16 px-4 transition-colors duration-300">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl sm:text-3xl font-bold text-left mb-2">What is Meshtastic?</h2>
-          <p className="text-lg sm:text-xl text-left leading-relaxed">
-Meshtastic is a decentralized, open-source communication protocol that establishes a mesh network using low-power, long-range radio LORA technology. It allows devices to send and receive text messages without relying on the internet, cellular networks, or any centralized infrastructure.
+      </section>
+
+      <section
+        id="meshtastic"
+        className="bg-gradient-to-br from-orange-100 to-amber-200 dark:from-gray-800 dark:to-gray-900 text-gray-800 dark:text-gray-100 py-20 px-6"
+      >
+        <div className="max-w-4xl mx-auto bg-white/70 dark:bg-gray-800/70 p-8 rounded-2xl shadow-lg backdrop-blur-sm">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+            What is Meshtastic?
+          </h2>
+          <p className="text-lg leading-relaxed">
+            Meshtastic is a decentralized, open-source communication protocol
+            that establishes a mesh network using low-power, long-range LoRa
+            technology. It allows devices to send and receive text messages
+            without relying on the internet, cellular networks, or any
+            centralized infrastructure.
           </p>
         </div>
-      </div>
+      </section>
 
-{/* Footer with copyright and github link, updated for dark mode */}
-      <div className="flex flex-col sm:flex-row items-center justify-end px-4 py-2 bg-gray-900 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
-        <span className="text-sm font-italic mb-2 sm:mb-0 sm:mr-4 text-white">&copy; {new Date().getFullYear()} Louisiana Mesh Community</span>
-        <a 
-          href="https://www.svgrepo.com/show/512317/github-142.svg"
-          className="flex items-center space-x-2"
-          target="_blank" 
+      {/* Footer */}
+      <footer className="flex flex-col items-center gap-3 py-6 bg-gray-900 text-gray-400 dark:text-gray-300">
+        <span className="text-sm">
+          &copy; {new Date().getFullYear()} Louisiana Mesh Community
+        </span>
+        <a
+          href="https://github.com/LouisianaMeshCommunity/Website"
+          className="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition"
+          target="_blank"
           rel="noopener noreferrer"
         >
-          <img 
-            className="h-5 w-5 filter invert" 
-            src="https://www.svgrepo.com/show/512317/github-142.svg" 
-            alt="GitHub Logo" 
+          <img
+            className="h-6 w-6 invert"
+            src="https://www.svgrepo.com/show/512317/github-142.svg"
+            alt="GitHub Logo"
           />
         </a>
-      </div>
+      </footer>
     </>
   );
 };
