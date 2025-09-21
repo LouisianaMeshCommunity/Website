@@ -11,12 +11,7 @@ const useTheme = () => {
   const getInitialTheme = (): Theme => {
     if (typeof window !== "undefined" && window.localStorage) {
       const storedTheme = window.localStorage.getItem("theme");
-      return (
-        (storedTheme as Theme) ||
-        (window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? "dark"
-          : "light")
-      );
+      return (storedTheme as Theme) || "light";
     }
     return "light";
   };
