@@ -41,7 +41,9 @@ const App: React.FC = () => {
       {/* Outer container for the background image and content */}
       <div 
         className="min-h-screen flex flex-col items-center justify-center p-4 bg-cover bg-center bg-no-repeat bg-fixed" 
-        style={{ backgroundImage: "url('https://placehold.co/1920x1080')" }}
+        style={{
+          backgroundImage: `url("/files/images/banner.jpg")`,
+        }}
       >
         {/* Semi-transparent overlay for better text readability */}
         <div className="absolute inset-0 bg-black opacity-50"></div>
@@ -69,12 +71,12 @@ const App: React.FC = () => {
             {/* Discord Button */}
             <a 
               href="https://discord.louisianamesh.org" 
-              className="flex items-center justify-center space-x-2 bg-indigo-500 text-white font-italic py-3 px-8 rounded-lg shadow-md hover:bg-indigo-700 transition duration-300 transform hover:scale-105"
+              className="flex items-center justify-center inspace-x-2 bg-indigo-500 text-white font-italic py-3 px-8 rounded-lg shadow-md hover:bg-indigo-700 transition duration-300 transform hover:scale-105"
               target="_blank" 
               rel="noopener noreferrer"
             >
-              <span>Join Our Discord</span>
-              <img className="h-5 w-5" src="https://www.svgrepo.com/show/327349/logo-discord.svg" alt="Discord Logo" />
+              <span>Join Our Discord&nbsp; </span>
+              <img className="h-5 w-5 invert" src="https://www.svgrepo.com/show/506463/discord.svg" alt="Discord Logo" />
             </a>
     
     
