@@ -268,31 +268,31 @@ const LinksContent = () => {
               <li>
                 Root Topic:{" "}
                 <code className="font-mono bg-gray-200 dark:bg-gray-700 p-1 rounded">
-                  msh/US/bayarea
+                  msh/US/LA
                 </code>
               </li>
               <li>
                 Server Address:{" "}
                 <code className="font-mono bg-gray-200 dark:bg-gray-700 p-1 rounded">
-                  mqtt.bayme.sh
+                  mqtt.louisianamesh.org
                 </code>
               </li>
               <li>
                 Username:{" "}
                 <code className="font-mono bg-gray-200 dark:bg-gray-700 p-1 rounded">
-                  meshdev
+                  uplink
                 </code>
               </li>
               <li>
                 Password:{" "}
                 <code className="font-mono bg-gray-200 dark:bg-gray-700 p-1 rounded">
-                  large4cats
+                  uplink
                 </code>
               </li>
               <li>
                 TLS Enabled:{" "}
                 <code className="font-mono bg-gray-200 dark:bg-gray-700 p-1 rounded">
-                  Optional
+                  False
                 </code>
               </li>
             </ul>
