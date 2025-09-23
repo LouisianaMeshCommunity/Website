@@ -87,6 +87,13 @@ const App = () => {
               Links
             </Link>
 
+            <Link
+              href="/meshmap"
+              className="hover:text-indigo-300 transition"
+            >
+              Mesh Map
+            </Link>
+
             <a
               href="https://discord.louisianamesh.org"
               target="_blank"

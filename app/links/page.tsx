@@ -59,9 +59,18 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
           <Link href="/" className="hover:text-indigo-300 transition">
             Home
           </Link>
+
           <Link href="/links" className="hover:text-indigo-300 transition">
             Links
           </Link>
+
+          <Link
+              href="/meshmap"
+              className="hover:text-indigo-300 transition"
+            >
+              Mesh Map
+            </Link>
+
           <a
             href="https://discord.louisianamesh.org"
             target="_blank"
@@ -310,7 +319,7 @@ const LinksPage = () => {
     <>
       <Navbar theme={theme} setTheme={setTheme} />
 
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-100 to-blue-400 dark:from-gray-900 dark:to-gray-950 px-6 py-24 sm:py-32 transition-all duration-300">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-100 to-yellow-200 dark:from-gray-900 dark:to-gray-950 px-6 py-24 sm:py-32 transition-all duration-300">
         <div className="max-w-4xl w-full">
           {/* Main Content */}
           <header className="text-center mb-12">
