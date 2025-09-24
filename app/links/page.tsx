@@ -41,6 +41,14 @@ type NavbarProps = {
   setTheme: React.Dispatch<React.SetStateAction<Theme>>;
 };
 
+const navLinks = [
+  { label: "Home", href: "/" },
+  { label: "Links", href: "/links" },
+  { label: "Mesh Map", href: "/meshmap" },
+  { label: "Discord", href: "https://discord.louisianamesh.org", external: true },
+  { label: "GitHub", href: "https://github.com/LouisianaMeshCommunity/Website", external: true },
+];
+
 const Navbar = ({ theme, setTheme }: NavbarProps) => {
   const [navOpen, setNavOpen] = useState(false);
 
@@ -56,37 +64,27 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-6 items-center text-white dark:text-gray-100 font-medium">
-          <Link href="/" className="hover:text-indigo-300 transition">
-            Home
-          </Link>
-
-          <Link href="/links" className="hover:text-indigo-300 transition">
-            Links
-          </Link>
-
-          <Link
-              href="/meshmap"
-              className="hover:text-indigo-300 transition"
-            >
-              Mesh Map
-            </Link>
-
-          <a
-            href="https://discord.louisianamesh.org"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-indigo-300 transition"
-          >
-            Discord
-          </a>
-          <a
-            href="https://github.com/LouisianaMeshCommunity/Website"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-indigo-300 transition"
-          >
-            GitHub
-          </a>
+          {navLinks.map(({ label, href, external }) =>
+            external ? (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-indigo-300 transition"
+              >
+                {label}
+              </a>
+            ) : (
+              <Link
+                key={label}
+                href={href}
+                className="hover:text-indigo-300 transition"
+              >
+                {label}
+              </Link>
+            )
+          )}
 
           {/* Theme Toggle */}
           <button
@@ -127,12 +125,7 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           ) : (
             <svg
@@ -141,12 +134,7 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           )}
         </button>
@@ -155,30 +143,30 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
       {/* Mobile Dropdown */}
       {navOpen && (
         <div className="md:hidden bg-black/70 text-white px-4 py-3 space-y-2 backdrop-blur-sm">
-          <Link href="/" onClick={() => setNavOpen(false)}>
-            Home
-          </Link>
-          <Link href="/links" onClick={() => setNavOpen(false)}>
-            Links
-          </Link>
-          <a
-            href="https://discord.louisianamesh.org"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block"
-            onClick={() => setNavOpen(false)}
-          >
-            Discord
-          </a>
-          <a
-            href="https://github.com/LouisianaMeshCommunity/Website"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block"
-            onClick={() => setNavOpen(false)}
-          >
-            GitHub
-          </a>
+          {navLinks.map(({ label, href, external }) =>
+            external ? (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block hover:text-indigo-300 transition"
+                onClick={() => setNavOpen(false)}
+              >
+                {label}
+              </a>
+            ) : (
+              <Link
+                key={label}
+                href={href}
+                className="block hover:text-indigo-300 transition"
+                onClick={() => setNavOpen(false)}
+              >
+                {label}
+              </Link>
+            )
+          )}
+
           <button
             onClick={() => {
               setTheme(theme === "dark" ? "light" : "dark");
@@ -202,67 +190,36 @@ interface LinkItem {
 }
 
 // --- LINKS PAGE COMPONENT ---
-// Main page component that renders the navbar and links section.
 const LinksPage = () => {
   const [theme, setTheme] = useTheme();
 
   const links: LinkItem[] = [
     {
       title: "Meshtastic.org",
-      description:
-        "The official website and home base for the Meshtastic project.",
+      description: "The official website and home base for the Meshtastic project.",
       url: "https://meshtastic.org/",
       icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 text-indigo-400"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M12 2L2 21h20L12 2zm0 14h.01M12 11V8" />
         </svg>
       ),
     },
     {
       title: "Meshtastic Firmware",
-      description:
-        "Find the latest source code and releases for the firmware on GitHub.",
+      description: "Find the latest source code and releases for the firmware on GitHub.",
       url: "https://github.com/meshtastic/firmware",
       icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 text-indigo-400"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
         </svg>
       ),
     },
     {
       title: "Meshtastic Docs",
-      description:
-        "Official documentation for setup, usage, and advanced features.",
+      description: "Official documentation for setup, usage, and advanced features.",
       url: "https://docs.meshtastic.org/",
       icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 text-indigo-400"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
           <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" />
         </svg>
@@ -273,16 +230,7 @@ const LinksPage = () => {
       description: "Flash your Meshtastic device firmware directly from your browser.",
       url: "https://github.com/meshtastic/web-flasher",
       icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 text-indigo-400"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M5 20a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3l-2 2h-3.5L10 22l-2-2H5z" />
           <path d="M12 11V6M12 18v-4" />
         </svg>
@@ -290,20 +238,10 @@ const LinksPage = () => {
     },
     {
       title: "Awesome Meshtastic",
-      description:
-        "A curated list of awesome things related to the Meshtastic project.",
+      description: "A curated list of awesome things related to the Meshtastic project.",
       url: "https://github.com/ShakataGaNai/awesome-meshtastic/",
       icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 text-indigo-400"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M15 10l4.5 4.5M15 10l-4.5 4.5M15 10l-4.5-4.5M15 10l4.5-4.5" />
           <path d="M21 12H3" />
           <path d="M21 12l-4.5 4.5" />

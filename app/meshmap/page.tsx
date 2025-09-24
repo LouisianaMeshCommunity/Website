@@ -41,6 +41,15 @@ type NavbarProps = {
   setTheme: React.Dispatch<React.SetStateAction<Theme>>;
 };
 
+// Shared nav links
+const navLinks = [
+  { label: "Home", href: "/" },
+  { label: "Links", href: "/links" },
+  { label: "Mesh Map", href: "/meshmap" },
+  { label: "Discord", href: "https://discord.louisianamesh.org", external: true },
+  { label: "GitHub", href: "https://github.com/LouisianaMeshCommunity/Website", external: true },
+];
+
 const Navbar = ({ theme, setTheme }: NavbarProps) => {
   const [navOpen, setNavOpen] = useState(false);
 
@@ -56,32 +65,27 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-6 items-center text-white dark:text-gray-100 font-medium">
-          <Link href="/" className="hover:text-indigo-300 transition">
-            Home
-          </Link>
-          <Link href="/links" className="hover:text-indigo-300 transition">
-            Links
-          </Link>
-          <Link href="/meshmap" className="hover:text-indigo-300 transition">
-            Mesh Map
-          </Link>
-
-          <a
-            href="https://discord.louisianamesh.org"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-indigo-300 transition"
-          >
-            Discord
-          </a>
-          <a
-            href="https://github.com/LouisianaMeshCommunity/Website"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-indigo-300 transition"
-          >
-            GitHub
-          </a>
+          {navLinks.map(({ label, href, external }) =>
+            external ? (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-indigo-300 transition"
+              >
+                {label}
+              </a>
+            ) : (
+              <Link
+                key={label}
+                href={href}
+                className="hover:text-indigo-300 transition"
+              >
+                {label}
+              </Link>
+            )
+          )}
 
           {/* Theme Toggle */}
           <button
@@ -150,30 +154,30 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
       {/* Mobile Dropdown */}
       {navOpen && (
         <div className="md:hidden bg-black/70 text-white px-4 py-3 space-y-2 backdrop-blur-sm">
-          <Link href="/" onClick={() => setNavOpen(false)}>
-            Home
-          </Link>
-          <Link href="/links" onClick={() => setNavOpen(false)}>
-            Links
-          </Link>
-          <a
-            href="https://discord.louisianamesh.org"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block"
-            onClick={() => setNavOpen(false)}
-          >
-            Discord
-          </a>
-          <a
-            href="https://github.com/LouisianaMeshCommunity/Website"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block"
-            onClick={() => setNavOpen(false)}
-          >
-            GitHub
-          </a>
+          {navLinks.map(({ label, href, external }) =>
+            external ? (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block hover:text-indigo-300 transition"
+                onClick={() => setNavOpen(false)}
+              >
+                {label}
+              </a>
+            ) : (
+              <Link
+                key={label}
+                href={href}
+                className="block hover:text-indigo-300 transition"
+                onClick={() => setNavOpen(false)}
+              >
+                {label}
+              </Link>
+            )
+          )}
+
           <button
             onClick={() => {
               setTheme(theme === "dark" ? "light" : "dark");

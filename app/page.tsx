@@ -35,6 +35,15 @@ const useTheme = () => {
   return [theme, setTheme] as const;
 };
 
+// Nav links (used for both desktop and mobile)
+const navLinks = [
+  { label: "Home", href: "/" },
+  { label: "Links", href: "/links" },
+  { label: "Mesh Map", href: "/meshmap" },
+  { label: "Discord", href: "https://discord.louisianamesh.org", external: true },
+  { label: "GitHub", href: "https://github.com/LouisianaMeshCommunity", external: true },
+];
+
 const App = () => {
   const [theme, setTheme] = useTheme();
   const [navOpen, setNavOpen] = useState(false);
@@ -56,15 +65,17 @@ const App = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []); // Empty dependency array ensures this effect runs once
+  }, []);
 
   return (
     <>
       {/* Navbar */}
-      <nav className={`fixed top-0 left-0 w-full z-30 transition-colors duration-300 ${navBg} backdrop-blur-sm`}>
+      <nav
+        className={`fixed top-0 left-0 w-full z-30 transition-colors duration-300 ${navBg} backdrop-blur-sm`}
+      >
         <div className="max-w-6xl mx-auto flex justify-between items-center px-4 py-3">
           <Link
-            href="#home"
+            href="/"
             className="text-xl font-bold text-white drop-shadow dark:text-gray-100"
           >
             LA Mesh
@@ -72,44 +83,27 @@ const App = () => {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-6 items-center text-white dark:text-gray-100 font-medium">
-            
-            <Link
-              href="/"
-              className="hover:text-indigo-300 transition"
-            >
-              Home
-            </Link>
-
-            <Link
-              href="/links"
-              className="hover:text-indigo-300 transition"
-            >
-              Links
-            </Link>
-
-            <Link
-              href="/meshmap"
-              className="hover:text-indigo-300 transition"
-            >
-              Mesh Map
-            </Link>
-
-            <a
-              href="https://discord.louisianamesh.org"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-indigo-300 transition"
-            >
-              Discord
-            </a>
-            <a
-              href="https://github.com/LouisianaMeshCommunity"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-indigo-300 transition"
-            >
-              GitHub
-            </a>
+            {navLinks.map(({ label, href, external }) =>
+              external ? (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-indigo-300 transition"
+                >
+                  {label}
+                </a>
+              ) : (
+                <Link
+                  key={label}
+                  href={href}
+                  className="hover:text-indigo-300 transition"
+                >
+                  {label}
+                </Link>
+              )
+            )}
 
             {/* Theme Toggle */}
             <button
@@ -178,27 +172,30 @@ const App = () => {
         {/* Mobile Dropdown */}
         {navOpen && (
           <div className="md:hidden bg-black/70 text-white px-4 py-3 space-y-2 backdrop-blur-sm">
-            <a href="#home" onClick={() => setNavOpen(false)}>Home</a>
-            <a href="#about" onClick={() => setNavOpen(false)}>About</a>
-            <a href="#meshtastic" onClick={() => setNavOpen(false)}>Meshtastic</a>
-            <a
-              href="https://discord.louisianamesh.org"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block"
-              onClick={() => setNavOpen(false)}
-            >
-              Discord
-            </a>
-            <a
-              href="https://github.com/LouisianaMeshCommunity/Website"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block"
-              onClick={() => setNavOpen(false)}
-            >
-              GitHub
-            </a>
+            {navLinks.map(({ label, href, external }) =>
+              external ? (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block hover:text-indigo-300 transition"
+                  onClick={() => setNavOpen(false)}
+                >
+                  {label}
+                </a>
+              ) : (
+                <Link
+                  key={label}
+                  href={href}
+                  className="block hover:text-indigo-300 transition"
+                  onClick={() => setNavOpen(false)}
+                >
+                  {label}
+                </Link>
+              )
+            )}
+
             <button
               onClick={() => {
                 setTheme(theme === "dark" ? "light" : "dark");
@@ -248,7 +245,7 @@ const App = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Meshtastic.org <span className="font-mono"></span>
+              Meshtastic.org
             </a>
           </div>
         </div>
@@ -304,7 +301,12 @@ const App = () => {
       >
         <div className="max-w-4xl mx-auto bg-white/70 dark:bg-gray-800/70 p-8 rounded-2xl shadow-lg backdrop-blur-sm">
           <h2 className="text-3xl sm:text-4xl font-bold mb-0">
-            <a href="https://discord.louisianamesh.org" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-300 transition">
+            <a
+              href="https://discord.louisianamesh.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-indigo-300 transition"
+            >
               Join us on Discord
             </a>
           </h2>
