@@ -205,12 +205,13 @@ const LinksPage = () => {
       ),
     },
     {
-      title: "Meshtastic Firmware",
-      description: "Find the latest source code and releases for the firmware on GitHub.",
-      url: "https://github.com/meshtastic/firmware",
+      title: "Web Flasher",
+      description: "Flash your Meshtastic device firmware directly from your browser.",
+      url: "https://github.com/meshtastic/web-flasher",
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+          <path d="M5 20a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3l-2 2h-3.5L10 22l-2-2H5z" />
+          <path d="M12 11V6M12 18v-4" />
         </svg>
       ),
     },
@@ -226,28 +227,12 @@ const LinksPage = () => {
       ),
     },
     {
-      title: "Web Flasher",
-      description: "Flash your Meshtastic device firmware directly from your browser.",
-      url: "https://github.com/meshtastic/web-flasher",
+      title: "Support Lousiana Mesh Community",
+      description: "A place to buy stickers and dontate to the community.",
+      url: "https://ko-fi.com/louisianameshcommunity",
       icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M5 20a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3l-2 2h-3.5L10 22l-2-2H5z" />
-          <path d="M12 11V6M12 18v-4" />
-        </svg>
-      ),
-    },
-    {
-      title: "Awesome Meshtastic",
-      description: "A curated list of awesome things related to the Meshtastic project.",
-      url: "https://github.com/ShakataGaNai/awesome-meshtastic/",
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M15 10l4.5 4.5M15 10l-4.5 4.5M15 10l-4.5-4.5M15 10l4.5-4.5" />
-          <path d="M21 12H3" />
-          <path d="M21 12l-4.5 4.5" />
-          <path d="M21 12l-4.5-4.5" />
-          <path d="M3 12l4.5 4.5" />
-          <path d="M3 12l4.5-4.5" />
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M19 21L12 5 5 21 5 19zm0-3L12 18l7 7M12 18v3h6v-3z" />
         </svg>
       ),
     },

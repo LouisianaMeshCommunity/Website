@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
-import Link from "next/link";
+// Replaced next/image and next/link with standard HTML elements for compatibility
+// import Image from "next/image";
+// import Link from "next/link";
 
 type Theme = "light" | "dark";
 
@@ -37,7 +38,7 @@ const useTheme = () => {
 
 // Nav links (used for both desktop and mobile)
 const navLinks = [
-  { label: "Home", href: "/" },
+  { label: "Home", href: "#home" }, // Changed Link href to anchor ID
   { label: "Links", href: "/links" },
   { label: "Mesh Map", href: "/meshmap" },
   { label: "Discord", href: "https://discord.louisianamesh.org", external: true },
@@ -66,6 +67,60 @@ const App = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+  
+  // Helper component to render an icon using a standard <img> tag
+  const Icon = ({ src, alt, className }: { src: string, alt: string, className: string }) => (
+    <img
+      src={src}
+      alt={alt}
+      className={className}
+      // Added width and height for proper rendering
+      width={24} 
+      height={24}
+      loading="lazy"
+      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src='https://placehold.co/24x24/101827/ffffff?text=Icon'; }}
+    />
+  );
+
+
+  // Helper component to handle both external links (<a>) and internal scrolls (<a> with #id)
+  // FIX: Added optional className prop to fix TypeScript error
+  const NavItem = ({ label, href, external, className }: typeof navLinks[number] & { className?: string }) => {
+    const baseClasses = `hover:text-indigo-300 transition cursor-pointer ${className || ''}`;
+    const handleClick = () => {
+      if (href.startsWith('#')) {
+        // Optional: Smooth scroll for internal links
+        document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+      }
+      setNavOpen(false);
+    };
+
+    if (external) {
+      return (
+        <a
+          key={label}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={baseClasses}
+        >
+          {label}
+        </a>
+      );
+    }
+    
+    // Use standard <a> for internal links/scrolls
+    return (
+      <a
+        key={label}
+        href={href}
+        className={baseClasses}
+        onClick={handleClick}
+      >
+        {label}
+      </a>
+    );
+  };
 
   return (
     <>
@@ -74,36 +129,19 @@ const App = () => {
         className={`fixed top-0 left-0 w-full z-30 transition-colors duration-300 ${navBg} backdrop-blur-sm`}
       >
         <div className="max-w-6xl mx-auto flex justify-between items-center px-4 py-3">
-          <Link
-            href="/"
+          <a
+            href="#home"
             className="text-xl font-bold text-white drop-shadow dark:text-gray-100"
+            onClick={() => document.querySelector('#home')?.scrollIntoView({ behavior: 'smooth' })}
           >
             LA Mesh
-          </Link>
+          </a>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-6 items-center text-white dark:text-gray-100 font-medium">
-            {navLinks.map(({ label, href, external }) =>
-              external ? (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-indigo-300 transition"
-                >
-                  {label}
-                </a>
-              ) : (
-                <Link
-                  key={label}
-                  href={href}
-                  className="hover:text-indigo-300 transition"
-                >
-                  {label}
-                </Link>
-              )
-            )}
+            {navLinks.map((link) => (
+              <NavItem key={link.label} {...link} />
+            ))}
 
             {/* Theme Toggle */}
             <button
@@ -112,20 +150,16 @@ const App = () => {
               className="ml-4 p-2 rounded-full bg-white/20 hover:bg-white/30 dark:bg-gray-700/50 text-white shadow transition-transform duration-300 hover:scale-110"
             >
               {theme === "dark" ? (
-                <Image
+                <Icon
                   className="h-5 w-5"
                   src="https://www.svgrepo.com/show/508131/moon.svg"
                   alt="Moon"
-                  width={20}
-                  height={20}
                 />
               ) : (
-                <Image
+                <Icon
                   className="h-5 w-5"
                   src="https://www.svgrepo.com/show/535669/sun.svg"
                   alt="Sun"
-                  width={20}
-                  height={20}
                 />
               )}
             </button>
@@ -172,29 +206,9 @@ const App = () => {
         {/* Mobile Dropdown */}
         {navOpen && (
           <div className="md:hidden bg-black/70 text-white px-4 py-3 space-y-2 backdrop-blur-sm">
-            {navLinks.map(({ label, href, external }) =>
-              external ? (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block hover:text-indigo-300 transition"
-                  onClick={() => setNavOpen(false)}
-                >
-                  {label}
-                </a>
-              ) : (
-                <Link
-                  key={label}
-                  href={href}
-                  className="block hover:text-indigo-300 transition"
-                  onClick={() => setNavOpen(false)}
-                >
-                  {label}
-                </Link>
-              )
-            )}
+            {navLinks.map((link) => (
+              <NavItem key={link.label} {...link} className="block" /> // Fixed error by allowing className prop
+            ))}
 
             <button
               onClick={() => {
@@ -230,12 +244,10 @@ const App = () => {
               rel="noopener noreferrer"
             >
               Join Our Discord
-              <Image
+              <Icon
                 className="h-5 w-5 invert"
                 src="https://www.svgrepo.com/show/506463/discord.svg"
                 alt="Discord Logo"
-                width={20}
-                height={20}
               />
             </a>
 
@@ -296,42 +308,121 @@ const App = () => {
       </section>
 
       <section
-        id="join-us"
-        className="bg-gradient-to-br from-green-100 to-green-200 dark:from-gray-800 dark:to-gray-900 text-green-800 dark:text-green-300 py-20 px-6"
+        id="meshcore"
+        className="bg-gradient-to-br from-pink-100 to-pink-200 dark:from-gray-800 dark:to-gray-900 text-gray-800 dark:text-gray-100 py-20 px-6"
       >
         <div className="max-w-4xl mx-auto bg-white/70 dark:bg-gray-800/70 p-8 rounded-2xl shadow-lg backdrop-blur-sm">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-0">
-            <a
-              href="https://discord.louisianamesh.org"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-indigo-300 transition"
-            >
-              Join us on Discord
-            </a>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+            What is Meshcore?
           </h2>
+          <p className="text-lg leading-relaxed">
+            Meshcore is similar to Meshtastic, but with a focus on message reliability. It uses dedicated repeater nodes with a much more sophisticated pathing solution, allowing for more reliable message sending and receiving. This allows repeater hops to reach up to 64, compared to Meshtastic&apos;s 7 hops, where anything higher causes unreliable messages.
+          </p>
         </div>
       </section>
 
+      <section
+        id="contact"
+        className="bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 text-gray-800 dark:text-gray-100 py-20 px-6"
+      >
+        <div className="max-w-4xl mx-auto bg-white/70 dark:bg-gray-800/70 p-8 rounded-2xl shadow-lg backdrop-blur-sm">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4">Contact</h2>
+          <p className="text-lg leading-relaxed">
+            If you&apos;d like to get in touch with us, Please email us at{" "}
+            <a
+              href="mailto:contact@louisianamesh.org"
+              className="hover:text-indigo-300 transition"
+            >
+              contact@louisianamesh.org
+            </a>
+            .
+          </p>
+        </div>
+      </section>  
+
       {/* Footer */}
-      <footer className="flex flex-col items-center gap-3 py-6 bg-gray-900 text-gray-400 dark:text-gray-300">
-        <span className="text-sm">
-          &copy; {new Date().getFullYear()} Louisiana Mesh Community
-        </span>
-        <a
-          href="https://github.com/LouisianaMeshCommunity/Website"
-          className="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            className="h-6 w-6 invert"
-            src="https://www.svgrepo.com/show/512317/github-142.svg"
-            alt="GitHub Logo"
-            width={24}
-            height={24}
-          />
-        </a>
+      <footer className="py-8 bg-gray-900 text-gray-400 dark:text-gray-300">
+        <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+
+          {/* 1. Left: Social Icons (Centered on all screen sizes) */}
+          <div className="order-2 md:order-none flex justify-center md:justify-center">
+            <div className="flex items-center gap-4 text-sm text-gray-300">
+              <a
+                href="https://github.com/LouisianaMeshCommunity/Website"
+                className="hover:text-white transition"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub Repository"
+              >
+                <Icon
+                  className="h-6 w-6 invert"
+                  src="https://www.svgrepo.com/show/512317/github-142.svg"
+                  alt="GitHub Logo"
+                />
+              </a>
+              <a
+                href="https://discord.louisianamesh.org"
+                className="hover:text-white transition"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Join our Discord"
+              >
+                <Icon
+                  className="h-6 w-6 invert"
+                  src="https://www.svgrepo.com/show/473585/discord.svg"
+                  alt="Discord Logo"
+                />
+              </a>
+
+              <a
+                href="https://ko-fi.com/louisianameshcommunity"
+                className="hover:text-white transition"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Support us on Ko-fi"
+              >
+                <Icon
+                  className="h-6 w-6 invert"
+                  src="https://www.svgrepo.com/show/330802/kofi.svg"
+                  alt="Ko-fi Logo"
+                />
+              </a>
+            </div>
+          </div>
+
+          {/* 2. Center: Copyright (Centered on all screen sizes) */}
+          <div className="order-1 md:order-none text-center">
+            <span className="text-sm">
+              &copy; {new Date().getFullYear()} Louisiana Mesh Community
+            </span>
+          </div>
+
+          {/* 3. Right: Partners Thank You (Centered on all screen sizes) */}
+          <div className="order-3 md:order-none text-center md:text-center text-sm">
+            <p className="font-semibold text-white mb-1">
+              Thank You to Our Partners
+            </p>
+            {/* Heltec Logo Embed */}
+            <a 
+              href="https://heltec.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block hover:opacity-80 transition"
+              aria-label="Visit Heltec Automation Website"
+            >
+                <img
+                  src="https://heltec.org/wp-content/uploads/2021/05/heltec-logo.png"
+                  alt="Heltec Automation Logo - Partner"
+                  className="h-10 w-auto mx-auto" // Set height, maintain aspect ratio, center image
+                  width={150} 
+                  height={40}
+                  loading="lazy"
+                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src='https://placehold.co/150x40/FFFFFF/000000?text=Heltec.org'; }}
+                />
+            </a>
+          </div>
+
+        </div>
       </footer>
     </>
   );
