@@ -44,7 +44,7 @@ type NavbarProps = {
 // Shared nav links
 const navLinks = [
   { label: "Home", href: "/" },
-  { label: "Links", href: "/links" },
+  { label: "Docs", href: "https://docs.louisianamesh.org" },
   { label: "Mesh Map", href: "/meshmap" },
   { label: "Discord", href: "https://discord.louisianamesh.org", external: true },
   { label: "GitHub", href: "https://github.com/LouisianaMeshCommunity/Website", external: true },

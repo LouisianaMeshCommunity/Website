@@ -39,7 +39,7 @@ const useTheme = () => {
 // Nav links (used for both desktop and mobile)
 const navLinks = [
   { label: "Home", href: "#home" }, // Changed Link href to anchor ID
-  { label: "Links", href: "/links" },
+  { label: "Docs", href: "https://docs.louisianamesh.org" },
   { label: "Mesh Map", href: "/meshmap" },
   { label: "Discord", href: "https://discord.louisianamesh.org", external: true },
   { label: "GitHub", href: "https://github.com/LouisianaMeshCommunity", external: true },
@@ -252,12 +252,12 @@ const App = () => {
             </a>
 
             <a
-              href="https://meshtastic.org/"
+              href="https://docs.louisianamesh.org/"
               className="flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-400 to-emerald-600 text-white font-semibold py-3 px-8 rounded-xl shadow-md hover:scale-105 hover:shadow-xl transition"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Meshtastic.org
+              View Our Docs
             </a>
           </div>
         </div>
