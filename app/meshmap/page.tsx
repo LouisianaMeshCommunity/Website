@@ -1,8 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import Image from "next/image";
 
 // ---------------- THEME HOOK ----------------
 type Theme = "light" | "dark";
@@ -45,9 +43,9 @@ type NavbarProps = {
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "Docs", href: "https://docs.louisianamesh.org" },
-  { label: "Mesh Map", href: "/meshmap" },
+  { label: "Mesh Map's", href: "/meshmap" },
   { label: "Discord", href: "https://discord.louisianamesh.org", external: true },
-  { label: "GitHub", href: "https://github.com/LouisianaMeshCommunity/Website", external: true },
+  { label: "GitHub", href: "https://github.com/LouisianaMeshCommunity", external: true },
 ];
 
 const Navbar = ({ theme, setTheme }: NavbarProps) => {
@@ -56,12 +54,12 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
   return (
     <nav className="fixed top-0 left-0 w-full z-30 bg-gray-900 dark:bg-gray-900">
       <div className="max-w-6xl mx-auto flex justify-between items-center px-4 py-3">
-        <Link
+        <a
           href="/"
           className="text-xl font-bold text-white drop-shadow dark:text-gray-100"
         >
           LA Mesh
-        </Link>
+        </a>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-6 items-center text-white dark:text-gray-100 font-medium">
@@ -77,13 +75,13 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
                 {label}
               </a>
             ) : (
-              <Link
+              <a
                 key={label}
                 href={href}
                 className="hover:text-indigo-300 transition"
               >
                 {label}
-              </Link>
+              </a>
             )
           )}
 
@@ -94,7 +92,7 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
             className="ml-4 p-2 rounded-full bg-white/20 hover:bg-white/30 dark:bg-gray-700/50 text-white shadow transition-transform duration-300 hover:scale-110"
           >
             {theme === "dark" ? (
-              <Image
+              <img
                 src="https://www.svgrepo.com/show/508131/moon.svg"
                 alt="Moon"
                 width={20}
@@ -102,7 +100,7 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
                 className="h-5 w-5"
               />
             ) : (
-              <Image
+              <img
                 src="https://www.svgrepo.com/show/535669/sun.svg"
                 alt="Sun"
                 width={20}
@@ -167,14 +165,14 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
                 {label}
               </a>
             ) : (
-              <Link
+              <a
                 key={label}
                 href={href}
                 className="block hover:text-indigo-300 transition"
                 onClick={() => setNavOpen(false)}
               >
                 {label}
-              </Link>
+              </a>
             )
           )}
 
@@ -210,6 +208,27 @@ const LinksContent = () => {
 
         {/* Links Grid */}
         <div className="grid grid-cols-1 gap-6">
+          {/* Explorer Bar */}
+          <a
+            href="https://explorer.louisianamesh.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center justify-between p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 border-b-4 border-emerald-500 hover:border-emerald-400"
+          >
+            {/* Left side: Title */}
+            <div className="flex items-center gap-4 text-left">
+              <div className="text-emerald-500 transition-transform duration-300 group-hover:scale-110"></div>
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+                Explorer
+              </h2>
+            </div>
+            {/* Right side: Description */}
+            <div className="flex-1 ml-6 text-right text-gray-600 dark:text-gray-400">
+              Our Primary Meshcore Network, and map to view live trafic around Lousiana.
+            </div>
+          </a>
+
+          {/* Meshview Bar */}
           <a
             href="https://meshview.louisianamesh.org/"
             target="_blank"
@@ -225,7 +244,7 @@ const LinksContent = () => {
             </div>
             {/* Right side: Description */}
             <div className="flex-1 ml-6 text-right text-gray-600 dark:text-gray-400">
-              The official website and home base for the Meshtastic project.
+              Our Secondary Meshtastic Network Map, to view live trafic in local areas in Louisiana.
             </div>
           </a>
         </div>
@@ -236,15 +255,15 @@ const LinksContent = () => {
         {/* How-to Section */}
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-            How to Add Your Device to the Map via MQTT
+            How to Add Your Device to the Map via MQTT for Meshtastic
           </h2>
           <p className="text-gray-700 dark:text-gray-300 mb-4">
-            If you&apos;re not nearby another node reporting to the map, you can have your device report itself to the map via MQTT.
+            If you're not nearby another node reporting to the map, you can have your device report itself to the map via MQTT.
           </p>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
             <li>Open the Meshtastic app or web client.</li>
             <li className="font-bold">Module Configuration &gt; MQTT</li>
-            <ul className="list-circle list-inside ml-5">
+            <ul className="list-disc list-inside ml-5">
               <li>
                 MQTT Enabled:{" "}
                 <code className="font-mono bg-gray-200 dark:bg-gray-700 p-1 rounded">
@@ -303,7 +322,7 @@ const LinksContent = () => {
             <li className="font-bold">
               Radio Configuration &gt; Channels &gt; 0 / Primary
             </li>
-            <ul className="list-circle list-inside ml-5">
+            <ul className="list-disc list-inside ml-5">
               <li>
                 MQTT Uplink:{" "}
                 <code className="font-mono bg-gray-200 dark:bg-gray-700 p-1 rounded">

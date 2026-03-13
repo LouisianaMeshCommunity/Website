@@ -40,7 +40,7 @@ const useTheme = () => {
 const navLinks = [
   { label: "Home", href: "#home" }, // Changed Link href to anchor ID
   { label: "Docs", href: "https://docs.louisianamesh.org" },
-  { label: "Mesh Map", href: "/meshmap" },
+  { label: "Mesh Map's", href: "/meshmap" },
   { label: "Discord", href: "https://discord.louisianamesh.org", external: true },
   { label: "GitHub", href: "https://github.com/LouisianaMeshCommunity", external: true },
 ];
@@ -270,21 +270,27 @@ const App = () => {
       >
         <div className="max-w-4xl mx-auto bg-white/70 dark:bg-gray-800/70 p-8 rounded-2xl shadow-lg backdrop-blur-sm">
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            What is Louisiana Mesh?
+            What is the Louisiana Mesh Community?
           </h2>
           <p className="text-lg leading-relaxed">
-            The Louisiana Mesh Community is a growing group of individuals who
-            share a common interest in Meshtastic, Meshcore, and other types of
-            mesh radio networks.
-            <br />
-            <br />
-            We are based in Louisiana and share a love for exploring and
-            expanding the state&apos;s mesh networks.
-            <br />
-            <br />
-            Whether you&apos;re new to the world of mesh communication or an
-            experienced user, everyone is welcome to join and contribute to the
-            community.
+            The Louisiana Mesh Community is a growing group of individuals dedicated to interconnecting Louisiana's cities with a decentralized, open-source messaging system. Providing a resilient communication channel that helps families stay together and communicate with others even when infrastructure is damaged from natural disasters.
+
+            
+
+          </p>
+        </div>
+      </section>
+
+      <section
+        id="meshcore"
+        className="bg-gradient-to-br from-pink-100 to-pink-200 dark:from-gray-800 dark:to-gray-900 text-gray-800 dark:text-gray-100 py-20 px-6"
+      >
+        <div className="max-w-4xl mx-auto bg-white/70 dark:bg-gray-800/70 p-8 rounded-2xl shadow-lg backdrop-blur-sm">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+            What is Meshcore?
+          </h2>
+          <p className="text-lg leading-relaxed">
+            Meshcore is similar to Meshtastic, but with a focus on message reliability. It uses dedicated repeater nodes with a much more sophisticated pathing solution, allowing for more reliable message sending and receiving. This allows repeater hops to reach up to 64, compared to Meshtastic&apos;s 7 hops, where anything higher causes unreliable messages.
           </p>
         </div>
       </section>
@@ -303,20 +309,6 @@ const App = () => {
             technology. It allows devices to send and receive text messages
             without relying on the internet, cellular networks, or any
             centralized infrastructure.
-          </p>
-        </div>
-      </section>
-
-      <section
-        id="meshcore"
-        className="bg-gradient-to-br from-pink-100 to-pink-200 dark:from-gray-800 dark:to-gray-900 text-gray-800 dark:text-gray-100 py-20 px-6"
-      >
-        <div className="max-w-4xl mx-auto bg-white/70 dark:bg-gray-800/70 p-8 rounded-2xl shadow-lg backdrop-blur-sm">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            What is Meshcore?
-          </h2>
-          <p className="text-lg leading-relaxed">
-            Meshcore is similar to Meshtastic, but with a focus on message reliability. It uses dedicated repeater nodes with a much more sophisticated pathing solution, allowing for more reliable message sending and receiving. This allows repeater hops to reach up to 64, compared to Meshtastic&apos;s 7 hops, where anything higher causes unreliable messages.
           </p>
         </div>
       </section>
@@ -344,8 +336,29 @@ const App = () => {
       <footer className="py-8 bg-gray-900 text-gray-400 dark:text-gray-300">
         <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
 
-          {/* 1. Left: Social Icons (Centered on all screen sizes) */}
-          <div className="order-2 md:order-none flex justify-center md:justify-center">
+          {/* 1. Left: Supporters Thank You */}
+          <div className="order-2 md:order-none text-center md:text-left text-sm flex flex-col items-center md:items-start">
+            <p className="font-semibold text-white mb-3">
+              Thank You to Our Supporters
+            </p>
+            <div className="flex flex-wrap gap-2 justify-center md:justify-start">
+              <span className="px-3 py-1 bg-gray-800/80 text-indigo-300 rounded-full text-xs font-semibold tracking-wide border border-gray-700 shadow-sm hover:bg-gray-700 transition cursor-default">ma7</span>
+              <span className="px-3 py-1 bg-gray-800/80 text-emerald-300 rounded-full text-xs font-semibold tracking-wide border border-gray-700 shadow-sm hover:bg-gray-700 transition cursor-default">n5msy</span>
+              <span className="px-3 py-1 bg-gray-800/80 text-pink-300 rounded-full text-xs font-semibold tracking-wide border border-gray-700 shadow-sm hover:bg-gray-700 transition cursor-default">talwah</span>
+              <span className="px-3 py-1 bg-gray-800/80 text-indigo-300 rounded-full text-xs font-semibold tracking-wide border border-gray-700 shadow-sm hover:bg-gray-700 transition cursor-default">simon</span>
+              <span className="px-3 py-1 bg-gray-800/80 text-emerald-300 rounded-full text-xs font-semibold tracking-wide border border-gray-700 shadow-sm hover:bg-gray-700 transition cursor-default">kyra</span>
+              <span className="px-3 py-1 bg-gray-800/80 text-indigo-300 rounded-full text-xs font-semibold tracking-wide border border-gray-700 shadow-sm hover:bg-gray-700 transition cursor-default">terry</span>
+              <span className="px-3 py-1 bg-gray-800/80 text-emerald-300 rounded-full text-xs font-semibold tracking-wide border border-gray-700 shadow-sm hover:bg-gray-700 transition cursor-default">mike</span>
+            </div>
+          </div>
+
+          {/* 2. Center: Copyright & Socials */}
+          <div className="order-1 md:order-none flex flex-col items-center gap-3 text-center">
+            <span className="text-sm">
+              &copy; {new Date().getFullYear()} Louisiana Mesh Community
+            </span>
+            
+            {/* Social Icons moved under the copyright */}
             <div className="flex items-center gap-4 text-sm text-gray-300">
               <a
                 href="https://github.com/LouisianaMeshCommunity/Website"
@@ -390,16 +403,9 @@ const App = () => {
             </div>
           </div>
 
-          {/* 2. Center: Copyright (Centered on all screen sizes) */}
-          <div className="order-1 md:order-none text-center">
-            <span className="text-sm">
-              &copy; {new Date().getFullYear()} Louisiana Mesh Community
-            </span>
-          </div>
-
-          {/* 3. Right: Partners Thank You (Centered on all screen sizes) */}
-          <div className="order-3 md:order-none text-center md:text-center text-sm">
-            <p className="font-semibold text-white mb-1">
+          {/* 3. Right: Partners Thank You */}
+          <div className="order-3 md:order-none text-center text-sm">
+            <p className="font-semibold text-white mb-2">
               Thank You to Our Partners
             </p>
             {/* Heltec Logo Embed */}
@@ -413,7 +419,7 @@ const App = () => {
                 <img
                   src="https://heltec.org/wp-content/uploads/2021/05/heltec-logo.png"
                   alt="Heltec Automation Logo - Partner"
-                  className="h-10 w-auto mx-auto" // Set height, maintain aspect ratio, center image
+                  className="h-10 w-auto mx-auto" 
                   width={150} 
                   height={40}
                   loading="lazy"
