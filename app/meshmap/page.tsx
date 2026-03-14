@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
 
 // ---------------- THEME HOOK ----------------
 type Theme = "light" | "dark";
@@ -54,12 +56,12 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
   return (
     <nav className="fixed top-0 left-0 w-full z-30 bg-gray-900 dark:bg-gray-900">
       <div className="max-w-6xl mx-auto flex justify-between items-center px-4 py-3">
-        <a
+        <Link
           href="/"
           className="text-xl font-bold text-white drop-shadow dark:text-gray-100"
         >
           LA Mesh
-        </a>
+        </Link>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-6 items-center text-white dark:text-gray-100 font-medium">
@@ -92,7 +94,7 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
             className="ml-4 p-2 rounded-full bg-white/20 hover:bg-white/30 dark:bg-gray-700/50 text-white shadow transition-transform duration-300 hover:scale-110"
           >
             {theme === "dark" ? (
-              <img
+              <Image
                 src="https://www.svgrepo.com/show/508131/moon.svg"
                 alt="Moon"
                 width={20}
@@ -100,7 +102,7 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
                 className="h-5 w-5"
               />
             ) : (
-              <img
+              <Image
                 src="https://www.svgrepo.com/show/535669/sun.svg"
                 alt="Sun"
                 width={20}
@@ -258,7 +260,7 @@ const LinksContent = () => {
             How to Add Your Device to the Map via MQTT for Meshtastic
           </h2>
           <p className="text-gray-700 dark:text-gray-300 mb-4">
-            If you're not nearby another node reporting to the map, you can have your device report itself to the map via MQTT.
+            If you&apos;re not nearby another node reporting to the map, you can have your device report itself to the map via MQTT.
           </p>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
             <li>Open the Meshtastic app or web client.</li>

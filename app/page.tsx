@@ -1,9 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-// Replaced next/image and next/link with standard HTML elements for compatibility
-// import Image from "next/image";
-// import Link from "next/link";
+import Image from "next/image";
 
 type Theme = "light" | "dark";
 
@@ -67,18 +65,15 @@ const App = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-  
-  // Helper component to render an icon using a standard <img> tag
+
+  // Helper component to render an icon using next/image
   const Icon = ({ src, alt, className }: { src: string, alt: string, className: string }) => (
-    <img
+    <Image
       src={src}
       alt={alt}
       className={className}
-      // Added width and height for proper rendering
-      width={24} 
+      width={24}
       height={24}
-      loading="lazy"
-      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src='https://placehold.co/24x24/101827/ffffff?text=Icon'; }}
     />
   );
 
@@ -108,7 +103,7 @@ const App = () => {
         </a>
       );
     }
-    
+
     // Use standard <a> for internal links/scrolls
     return (
       <a
@@ -273,9 +268,9 @@ const App = () => {
             What is the Louisiana Mesh Community?
           </h2>
           <p className="text-lg leading-relaxed">
-            The Louisiana Mesh Community is a growing group of individuals dedicated to interconnecting Louisiana's cities with a decentralized, open-source messaging system. Providing a resilient communication channel that helps families stay together and communicate with others even when infrastructure is damaged from natural disasters.
+            The Louisiana Mesh Community is a growing group of individuals dedicated to interconnecting Louisiana&apos;s cities with a decentralized, open-source messaging system. Providing a resilient communication channel that helps families stay together and communicate with others even when infrastructure is damaged from natural disasters.
 
-            
+
 
           </p>
         </div>
@@ -330,7 +325,7 @@ const App = () => {
             .
           </p>
         </div>
-      </section>  
+      </section>
 
       {/* Footer */}
       <footer className="py-8 bg-gray-900 text-gray-400 dark:text-gray-300">
@@ -357,7 +352,7 @@ const App = () => {
             <span className="text-sm">
               &copy; {new Date().getFullYear()} Louisiana Mesh Community
             </span>
-            
+
             {/* Social Icons moved under the copyright */}
             <div className="flex items-center gap-4 text-sm text-gray-300">
               <a
@@ -409,22 +404,20 @@ const App = () => {
               Thank You to Our Partners
             </p>
             {/* Heltec Logo Embed */}
-            <a 
+            <a
               href="https://heltec.org/"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block hover:opacity-80 transition"
               aria-label="Visit Heltec Automation Website"
             >
-                <img
-                  src="https://heltec.org/wp-content/uploads/2021/05/heltec-logo.png"
-                  alt="Heltec Automation Logo - Partner"
-                  className="h-10 w-auto mx-auto" 
-                  width={150} 
-                  height={40}
-                  loading="lazy"
-                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src='https://placehold.co/150x40/FFFFFF/000000?text=Heltec.org'; }}
-                />
+              <Image
+                src="https://heltec.org/wp-content/uploads/2021/05/heltec-logo.png"
+                alt="Heltec Automation Logo - Partner"
+                className="h-10 w-auto mx-auto"
+                width={150}
+                height={40}
+              />
             </a>
           </div>
 
