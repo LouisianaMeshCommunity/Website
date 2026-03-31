@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "esptool-js": "^0.5.7",
     "express": "^4.21.2",
     "lucide-react": "^0.544.0",
     "next": "^15.5.7",

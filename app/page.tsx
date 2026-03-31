@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
 
 type Theme = "light" | "dark";
 
@@ -36,7 +35,7 @@ const useTheme = () => {
 
 // Nav links (used for both desktop and mobile)
 const navLinks = [
-  { label: "Home", href: "#home" }, // Changed Link href to anchor ID
+  { label: "Home", href: "#home" },
   { label: "Docs", href: "https://docs.louisianamesh.org" },
   { label: "Mesh Map's", href: "/meshmap" },
   { label: "Discord", href: "https://discord.louisianamesh.org", external: true },
@@ -47,6 +46,7 @@ const App = () => {
   const [theme, setTheme] = useTheme();
   const [navOpen, setNavOpen] = useState(false);
   const [navBg, setNavBg] = useState("bg-transparent");
+  const [showBanner, setShowBanner] = useState(true);
 
   // Handle scroll event to change the navbar background
   useEffect(() => {
@@ -60,31 +60,25 @@ const App = () => {
 
     window.addEventListener("scroll", handleScroll);
 
-    // Cleanup function to remove the event listener
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
-  // Helper component to render an icon using next/image
+  // Updated Icon component using standard <img> tag instead of next/image
   const Icon = ({ src, alt, className }: { src: string, alt: string, className: string }) => (
-    <Image
+    <img
       src={src}
       alt={alt}
       className={className}
-      width={24}
-      height={24}
+      style={{ width: '24px', height: '24px', objectFit: 'contain' }}
     />
   );
 
-
-  // Helper component to handle both external links (<a>) and internal scrolls (<a> with #id)
-  // FIX: Added optional className prop to fix TypeScript error
   const NavItem = ({ label, href, external, className }: typeof navLinks[number] & { className?: string }) => {
     const baseClasses = `hover:text-indigo-300 transition cursor-pointer ${className || ''}`;
     const handleClick = () => {
       if (href.startsWith('#')) {
-        // Optional: Smooth scroll for internal links
         document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
       }
       setNavOpen(false);
@@ -104,7 +98,6 @@ const App = () => {
       );
     }
 
-    // Use standard <a> for internal links/scrolls
     return (
       <a
         key={label}
@@ -119,15 +112,46 @@ const App = () => {
 
   return (
     <>
-      {/* Navbar */}
+      {/* Announcement Banner */}
+      {showBanner && (
+        <div className="fixed top-0 left-0 w-full z-50 bg-indigo-600 text-white px-4 py-2 text-center text-sm sm:text-base font-medium shadow-md flex items-center justify-center gap-2">
+          <span className="flex items-center gap-2">
+            <span role="img" aria-label="loudspeaker"></span> 
+            New Meshcore settings! Please{""}
+            <a 
+              href="https://docs.louisianamesh.org/freq-settings/" 
+              className="underline font-bold hover:text-indigo-100 transition"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              read our docs
+            </a>{" "}
+            to ensure your repeater works correctly.
+          </span>
+          <button 
+            onClick={() => setShowBanner(false)}
+            className="ml-4 p-1 hover:bg-white/20 rounded-full transition shrink-0"
+            aria-label="Dismiss banner"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      )}
+
+      {/* Navbar - Adjusted top offset based on banner visibility */}
       <nav
-        className={`fixed top-0 left-0 w-full z-30 transition-colors duration-300 ${navBg} backdrop-blur-sm`}
+        className={`fixed ${showBanner ? 'top-10 sm:top-10' : 'top-0'} left-0 w-full z-40 transition-all duration-300 ${navBg} backdrop-blur-sm`}
       >
         <div className="max-w-6xl mx-auto flex justify-between items-center px-4 py-3">
           <a
             href="#home"
             className="text-xl font-bold text-white drop-shadow dark:text-gray-100"
-            onClick={() => document.querySelector('#home')?.scrollIntoView({ behavior: 'smooth' })}
+            onClick={(e) => {
+              e.preventDefault();
+              document.querySelector('#home')?.scrollIntoView({ behavior: 'smooth' });
+            }}
           >
             LA Mesh
           </a>
@@ -142,7 +166,7 @@ const App = () => {
             <button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               aria-label="Toggle theme"
-              className="ml-4 p-2 rounded-full bg-white/20 hover:bg-white/30 dark:bg-gray-700/50 text-white shadow transition-transform duration-300 hover:scale-110"
+              className="ml-4 p-2 rounded-full bg-white/20 hover:bg-white/30 dark:bg-gray-700/50 text-white shadow transition-transform duration-300 hover:scale-110 flex items-center justify-center"
             >
               {theme === "dark" ? (
                 <Icon
@@ -167,32 +191,12 @@ const App = () => {
             className="md:hidden p-2 rounded-lg text-white hover:bg-white/20 transition"
           >
             {navOpen ? (
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
+              <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             ) : (
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
+              <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             )}
           </button>
@@ -202,7 +206,7 @@ const App = () => {
         {navOpen && (
           <div className="md:hidden bg-black/70 text-white px-4 py-3 space-y-2 backdrop-blur-sm">
             {navLinks.map((link) => (
-              <NavItem key={link.label} {...link} className="block" /> // Fixed error by allowing className prop
+              <NavItem key={link.label} {...link} className="block" />
             ))}
 
             <button
@@ -210,7 +214,7 @@ const App = () => {
                 setTheme(theme === "dark" ? "light" : "dark");
                 setNavOpen(false);
               }}
-              className="mt-3 p-2 rounded-lg bg-white/20 hover:bg-white/30"
+              className="mt-3 p-2 rounded-lg bg-white/20 hover:bg-white/30 w-full text-left"
             >
               {theme === "dark" ? "Light Mode" : "Dark Mode"}
             </button>
@@ -259,70 +263,41 @@ const App = () => {
       </div>
 
       {/* Info Sections */}
-      <section
-        id="about"
-        className="bg-gradient-to-br from-blue-100 to-blue-200 dark:from-gray-800 dark:to-gray-900 text-gray-800 dark:text-gray-100 py-20 px-6"
-      >
+      <section id="about" className="bg-gradient-to-br from-blue-100 to-blue-200 dark:from-gray-800 dark:to-gray-900 text-gray-800 dark:text-gray-100 py-20 px-6">
         <div className="max-w-4xl mx-auto bg-white/70 dark:bg-gray-800/70 p-8 rounded-2xl shadow-lg backdrop-blur-sm">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            What is the Louisiana Mesh Community?
-          </h2>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4">What is the Louisiana Mesh Community?</h2>
           <p className="text-lg leading-relaxed">
             The Louisiana Mesh Community is a growing group of individuals dedicated to interconnecting Louisiana&apos;s cities with a decentralized, open-source messaging system. Providing a resilient communication channel that helps families stay together and communicate with others even when infrastructure is damaged from natural disasters.
-
-
-
           </p>
         </div>
       </section>
 
-      <section
-        id="meshcore"
-        className="bg-gradient-to-br from-pink-100 to-pink-200 dark:from-gray-800 dark:to-gray-900 text-gray-800 dark:text-gray-100 py-20 px-6"
-      >
+      <section id="meshcore" className="bg-gradient-to-br from-pink-100 to-pink-200 dark:from-gray-800 dark:to-gray-900 text-gray-800 dark:text-gray-100 py-20 px-6">
         <div className="max-w-4xl mx-auto bg-white/70 dark:bg-gray-800/70 p-8 rounded-2xl shadow-lg backdrop-blur-sm">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            What is Meshcore?
-          </h2>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4">What is Meshcore?</h2>
           <p className="text-lg leading-relaxed">
             Meshcore is similar to Meshtastic, but with a focus on message reliability. It uses dedicated repeater nodes with a much more sophisticated pathing solution, allowing for more reliable message sending and receiving. This allows repeater hops to reach up to 64, compared to Meshtastic&apos;s 7 hops, where anything higher causes unreliable messages.
           </p>
         </div>
       </section>
 
-      <section
-        id="meshtastic"
-        className="bg-gradient-to-br from-orange-100 to-amber-200 dark:from-gray-800 dark:to-gray-900 text-gray-800 dark:text-gray-100 py-20 px-6"
-      >
+      <section id="meshtastic" className="bg-gradient-to-br from-orange-100 to-amber-200 dark:from-gray-800 dark:to-gray-900 text-gray-800 dark:text-gray-100 py-20 px-6">
         <div className="max-w-4xl mx-auto bg-white/70 dark:bg-gray-800/70 p-8 rounded-2xl shadow-lg backdrop-blur-sm">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            What is Meshtastic?
-          </h2>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4">What is Meshtastic?</h2>
           <p className="text-lg leading-relaxed">
-            Meshtastic is a decentralized, open-source communication protocol
-            that establishes a mesh network using low-power, long-range LoRa
-            technology. It allows devices to send and receive text messages
-            without relying on the internet, cellular networks, or any
-            centralized infrastructure.
+            Meshtastic is a decentralized, open-source communication protocol that establishes a mesh network using low-power, long-range LoRa technology. It allows devices to send and receive text messages without relying on the internet, cellular networks, or any centralized infrastructure.
           </p>
         </div>
       </section>
 
-      <section
-        id="contact"
-        className="bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 text-gray-800 dark:text-gray-100 py-20 px-6"
-      >
+      <section id="contact" className="bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 text-gray-800 dark:text-gray-100 py-20 px-6">
         <div className="max-w-4xl mx-auto bg-white/70 dark:bg-gray-800/70 p-8 rounded-2xl shadow-lg backdrop-blur-sm">
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">Contact</h2>
           <p className="text-lg leading-relaxed">
             If you&apos;d like to get in touch with us, Please email us at{" "}
-            <a
-              href="mailto:contact@louisianamesh.org"
-              className="hover:text-indigo-300 transition"
-            >
+            <a href="mailto:contact@louisianamesh.org" className="hover:text-indigo-300 transition underline underline-offset-4">
               contact@louisianamesh.org
-            </a>
-            .
+            </a>.
           </p>
         </div>
       </section>
@@ -330,97 +305,38 @@ const App = () => {
       {/* Footer */}
       <footer className="py-8 bg-gray-900 text-gray-400 dark:text-gray-300">
         <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-
-          {/* 1. Left: Supporters Thank You */}
           <div className="order-2 md:order-none text-center md:text-left text-sm flex flex-col items-center md:items-start">
-            <p className="font-semibold text-white mb-3">
-              Thank You to Our Supporters
-            </p>
+            <p className="font-semibold text-white mb-3">Thank You to Our Supporters</p>
             <div className="flex flex-wrap gap-2 justify-center md:justify-start">
-              <span className="px-3 py-1 bg-gray-800/80 text-indigo-300 rounded-full text-xs font-semibold tracking-wide border border-gray-700 shadow-sm hover:bg-gray-700 transition cursor-default">ma7</span>
-              <span className="px-3 py-1 bg-gray-800/80 text-emerald-300 rounded-full text-xs font-semibold tracking-wide border border-gray-700 shadow-sm hover:bg-gray-700 transition cursor-default">n5msy</span>
-              <span className="px-3 py-1 bg-gray-800/80 text-pink-300 rounded-full text-xs font-semibold tracking-wide border border-gray-700 shadow-sm hover:bg-gray-700 transition cursor-default">talwah</span>
-              <span className="px-3 py-1 bg-gray-800/80 text-indigo-300 rounded-full text-xs font-semibold tracking-wide border border-gray-700 shadow-sm hover:bg-gray-700 transition cursor-default">simon</span>
-              <span className="px-3 py-1 bg-gray-800/80 text-emerald-300 rounded-full text-xs font-semibold tracking-wide border border-gray-700 shadow-sm hover:bg-gray-700 transition cursor-default">kyra</span>
-              <span className="px-3 py-1 bg-gray-800/80 text-indigo-300 rounded-full text-xs font-semibold tracking-wide border border-gray-700 shadow-sm hover:bg-gray-700 transition cursor-default">terry</span>
-              <span className="px-3 py-1 bg-gray-800/80 text-emerald-300 rounded-full text-xs font-semibold tracking-wide border border-gray-700 shadow-sm hover:bg-gray-700 transition cursor-default">mike</span>
+              {["ma7", "n5msy", "talwah", "simon", "kyra", "terry", "mike"].map(name => (
+                <span key={name} className="px-3 py-1 bg-gray-800/80 text-indigo-300 rounded-full text-xs font-semibold tracking-wide border border-gray-700 shadow-sm hover:bg-gray-700 transition cursor-default">
+                  {name}
+                </span>
+              ))}
             </div>
           </div>
 
-          {/* 2. Center: Copyright & Socials */}
           <div className="order-1 md:order-none flex flex-col items-center gap-3 text-center">
-            <span className="text-sm">
-              &copy; {new Date().getFullYear()} Louisiana Mesh Community
-            </span>
-
-            {/* Social Icons moved under the copyright */}
+            <span className="text-sm">&copy; {new Date().getFullYear()} Louisiana Mesh Community</span>
             <div className="flex items-center gap-4 text-sm text-gray-300">
-              <a
-                href="https://github.com/LouisianaMeshCommunity/Website"
-                className="hover:text-white transition"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub Repository"
-              >
-                <Icon
-                  className="h-6 w-6 invert"
-                  src="https://www.svgrepo.com/show/512317/github-142.svg"
-                  alt="GitHub Logo"
-                />
+              <a href="https://github.com/LouisianaMeshCommunity/Website" target="_blank" rel="noopener noreferrer" className="hover:text-white transition" aria-label="GitHub">
+                <Icon className="h-6 w-6 invert" src="https://www.svgrepo.com/show/512317/github-142.svg" alt="GitHub" />
               </a>
-              <a
-                href="https://discord.louisianamesh.org"
-                className="hover:text-white transition"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Join our Discord"
-              >
-                <Icon
-                  className="h-6 w-6 invert"
-                  src="https://www.svgrepo.com/show/473585/discord.svg"
-                  alt="Discord Logo"
-                />
+              <a href="https://discord.louisianamesh.org" target="_blank" rel="noopener noreferrer" className="hover:text-white transition" aria-label="Discord">
+                <Icon className="h-6 w-6 invert" src="https://www.svgrepo.com/show/473585/discord.svg" alt="Discord" />
               </a>
-
-              <a
-                href="https://ko-fi.com/louisianameshcommunity"
-                className="hover:text-white transition"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Support us on Ko-fi"
-              >
-                <Icon
-                  className="h-6 w-6 invert"
-                  src="https://www.svgrepo.com/show/330802/kofi.svg"
-                  alt="Ko-fi Logo"
-                />
+              <a href="https://ko-fi.com/louisianameshcommunity" target="_blank" rel="noopener noreferrer" className="hover:text-white transition" aria-label="Ko-fi">
+                <Icon className="h-6 w-6 invert" src="https://www.svgrepo.com/show/330802/kofi.svg" alt="Ko-fi" />
               </a>
             </div>
           </div>
 
-          {/* 3. Right: Partners Thank You */}
           <div className="order-3 md:order-none text-center text-sm">
-            <p className="font-semibold text-white mb-2">
-              Thank You to Our Partners
-            </p>
-            {/* Heltec Logo Embed */}
-            <a
-              href="https://heltec.org/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block hover:opacity-80 transition"
-              aria-label="Visit Heltec Automation Website"
-            >
-              <Image
-                src="https://heltec.org/wp-content/uploads/2021/05/heltec-logo.png"
-                alt="Heltec Automation Logo - Partner"
-                className="h-10 w-auto mx-auto"
-                width={150}
-                height={40}
-              />
+            <p className="font-semibold text-white mb-2">Thank You to Our Partners</p>
+            <a href="https://heltec.org/" target="_blank" rel="noopener noreferrer" className="inline-block hover:opacity-80 transition" aria-label="Heltec Automation">
+              <img src="https://heltec.org/wp-content/uploads/2021/05/heltec-logo.png" alt="Heltec Partner" className="h-10 w-auto mx-auto" style={{ height: '40px' }} />
             </a>
           </div>
-
         </div>
       </footer>
     </>
