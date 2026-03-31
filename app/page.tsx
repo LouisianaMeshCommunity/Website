@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image"; // Added next/image import
 
 type Theme = "light" | "dark";
 
@@ -65,13 +66,15 @@ const App = () => {
     };
   }, []);
 
-  // Updated Icon component using standard <img> tag instead of next/image
-  const Icon = ({ src, alt, className }: { src: string, alt: string, className: string }) => (
-    <img
+  // Updated Icon component using next/image
+  const Icon = ({ src, alt, className }: { src: string; alt: string; className?: string }) => (
+    <Image
       src={src}
       alt={alt}
+      width={24}
+      height={24}
       className={className}
-      style={{ width: '24px', height: '24px', objectFit: 'contain' }}
+      style={{ objectFit: 'contain' }}
     />
   );
 
@@ -308,7 +311,7 @@ const App = () => {
           <div className="order-2 md:order-none text-center md:text-left text-sm flex flex-col items-center md:items-start">
             <p className="font-semibold text-white mb-3">Thank You to Our Supporters</p>
             <div className="flex flex-wrap gap-2 justify-center md:justify-start">
-              {["ma7", "n5msy", "talwah", "simon", "kyra", "terry", "mike"].map(name => (
+              {["ma7", "n5msy", "talwah", "simon", "kyra", "terry", "mike", "rg3120", "Mike Baldwin"].map(name => (
                 <span key={name} className="px-3 py-1 bg-gray-800/80 text-indigo-300 rounded-full text-xs font-semibold tracking-wide border border-gray-700 shadow-sm hover:bg-gray-700 transition cursor-default">
                   {name}
                 </span>
@@ -334,7 +337,15 @@ const App = () => {
           <div className="order-3 md:order-none text-center text-sm">
             <p className="font-semibold text-white mb-2">Thank You to Our Partners</p>
             <a href="https://heltec.org/" target="_blank" rel="noopener noreferrer" className="inline-block hover:opacity-80 transition" aria-label="Heltec Automation">
-              <img src="https://heltec.org/wp-content/uploads/2021/05/heltec-logo.png" alt="Heltec Partner" className="h-10 w-auto mx-auto" style={{ height: '40px' }} />
+              {/* Updated Partner Logo using next/image */}
+              <Image 
+                src="https://heltec.org/wp-content/uploads/2021/05/heltec-logo.png" 
+                alt="Heltec Partner" 
+                width={140} 
+                height={40} 
+                className="h-10 w-auto mx-auto" 
+                style={{ objectFit: 'contain' }} 
+              />
             </a>
           </div>
         </div>
