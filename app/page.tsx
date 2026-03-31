@@ -311,7 +311,7 @@ const App = () => {
           <div className="order-2 md:order-none text-center md:text-left text-sm flex flex-col items-center md:items-start">
             <p className="font-semibold text-white mb-3">Thank You to Our Supporters</p>
             <div className="flex flex-wrap gap-2 justify-center md:justify-start">
-              {["ma7", "n5msy", "talwah", "simon", "kyra", "terry", "mike"].map(name => (
+              {["ma7", "n5msy", "talwah", "simon", "kyra", "terry", "mike", "rg3120", "Mike Baldwin"].map(name => (
                 <span key={name} className="px-3 py-1 bg-gray-800/80 text-indigo-300 rounded-full text-xs font-semibold tracking-wide border border-gray-700 shadow-sm hover:bg-gray-700 transition cursor-default">
                   {name}
                 </span>
