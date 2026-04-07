@@ -293,7 +293,7 @@ const App = () => {
         </div>
       </section>
 
-      <section id="contact" className="bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 text-gray-800 dark:text-gray-100 py-20 px-6">
+      <section id="contact" className="bg-gradient-to-br from-green-100 to-green-200 dark:from-gray-800 dark:to-gray-900 text-gray-800 dark:text-gray-100 py-20 px-6">
         <div className="max-w-4xl mx-auto bg-white/70 dark:bg-gray-800/70 p-8 rounded-2xl shadow-lg backdrop-blur-sm">
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">Contact</h2>
           <p className="text-lg leading-relaxed">
@@ -301,6 +301,18 @@ const App = () => {
             <a href="mailto:contact@louisianamesh.org" className="hover:text-indigo-300 transition underline underline-offset-4">
               contact@louisianamesh.org
             </a>.
+          </p>
+        </div>
+      </section>
+
+      <section id="Sign up for our newsletter" className="bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 text-gray-800 dark:text-gray-100 py-20 px-6">
+        <div className="max-w-4xl mx-auto bg-white/70 dark:bg-gray-800/70 p-8 rounded-2xl shadow-lg backdrop-blur-sm">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+            <a href="https://louisianamesh.org/emailsignup" className="hover:text-indigo-300 transition underline underline-offset-4">
+              Sign up for our newsletter
+            </a>
+          </h2>
+          <p className="text-lg leading-relaxed">
           </p>
         </div>
       </section>
