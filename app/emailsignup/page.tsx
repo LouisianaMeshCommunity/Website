@@ -33,7 +33,9 @@ const useTheme = () => {
 };
 
 export default function EmailSignupPage() {
-  const [theme] = useTheme();
+  // Calling the hook to apply theme classes, but not destructuring 'theme' to avoid ESLint errors
+  useTheme();
+  
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<{ type: 'success' | 'error', text: string } | null>(null);
 
@@ -53,7 +55,7 @@ export default function EmailSignupPage() {
     // MANDATORY LIST: Network Alerts (Max 2x month)
     params.append("l", "9a20b3f8-4ea8-4c42-ae1c-8f426ee77879");
 
-    // OPTIONAL LIST: Weekly Meetings (If checked)
+    // OPTIONAL LIST: Network News (If checked)
     if (formData.get("weekly")) {
       params.append("l", "3f08e2e0-0db3-4ffa-a7c2-b71bf6a39f1c");
     }
@@ -75,7 +77,8 @@ export default function EmailSignupPage() {
         text: "Subscription request received! Please check your inbox to confirm." 
       });
       (e.target as HTMLFormElement).reset();
-    } catch (err) {
+    } catch {
+      // Catching without 'err' variable to satisfy strict ESLint rules
       setStatus({ 
         type: 'error', 
         text: "Connection error. Please try again later." 
@@ -141,7 +144,7 @@ export default function EmailSignupPage() {
                     <Bell className="w-4 h-4 text-indigo-500" /> Network Alerts
                   </div>
                   <p className="text-xs text-gray-600 dark:text-gray-300 mt-1">
-                    Important updates and breaking changes that may be happening; Upto 2 emails a month.
+                    Important updates and breaking changes; Up to 2 emails a month.
                   </p>
                 </div>
               </div>
@@ -160,7 +163,7 @@ export default function EmailSignupPage() {
                     <Calendar className="w-4 h-4 text-indigo-500" /> Network News
                   </div>
                   <p className="text-xs text-gray-600 dark:text-gray-300 mt-1">
-                    Get summaries from our weekly community meetings and other news; Upto 1 emails a week.
+                    Summaries from our weekly community meetings and other news; Up to 1 email a week.
                   </p>
                 </div>
               </label>
