@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Lousiana Mesh Community", 
+  title: "Gulf Coast Mesh", 
   description: "The Louisiana Mesh Community Website",
 };
 

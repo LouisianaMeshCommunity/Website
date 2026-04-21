@@ -37,9 +37,9 @@ const useTheme = () => {
 // Nav links (used for both desktop and mobile)
 const navLinks = [
   { label: "Home", href: "#home" },
-  { label: "Docs", href: "https://docs.louisianamesh.org" },
+  { label: "Docs", href: "https://docs.gulfcoastmesh.org" },
   { label: "Mesh Map's", href: "/meshmap" },
-  { label: "Discord", href: "https://discord.louisianamesh.org", external: true },
+  { label: "Discord", href: "https://discord.gulfcoastmesh.org", external: true },
   { label: "GitHub", href: "https://github.com/LouisianaMeshCommunity", external: true },
 ];
 
@@ -122,7 +122,7 @@ const App = () => {
             <span role="img" aria-label="loudspeaker"></span> 
             New Meshcore settings! Please{""}
             <a 
-              href="https://docs.louisianamesh.org/freq-settings/" 
+              href="https://docs.gulfcoastmesh.org/freq-settings/" 
               className="underline font-bold hover:text-indigo-100 transition"
               target="_blank"
               rel="noopener noreferrer"
@@ -156,7 +156,7 @@ const App = () => {
               document.querySelector('#home')?.scrollIntoView({ behavior: 'smooth' });
             }}
           >
-            LA Mesh
+            Gulf Mesh
           </a>
 
           {/* Desktop Menu */}
@@ -235,12 +235,12 @@ const App = () => {
 
         <div className="relative z-10 flex flex-col items-center justify-center w-full text-center mt-20">
           <h1 className="text-5xl sm:text-6xl font-extrabold tracking-tight text-white drop-shadow-lg mb-8">
-            Louisiana Mesh Community
+            Gulf Coast Mesh
           </h1>
 
           <div className="flex flex-col sm:flex-row gap-4">
             <a
-              href="https://discord.louisianamesh.org"
+              href="https://discord.gulfcoastmesh.org"
               className="flex items-center justify-center gap-2 bg-gradient-to-r from-indigo-400 to-indigo-600 text-white font-semibold py-3 px-8 rounded-xl shadow-md hover:scale-105 hover:shadow-xl transition"
               target="_blank"
               rel="noopener noreferrer"
@@ -254,7 +254,7 @@ const App = () => {
             </a>
 
             <a
-              href="https://docs.louisianamesh.org/"
+              href="https://docs.gulfcoastmesh.org/"
               className="flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-400 to-emerald-600 text-white font-semibold py-3 px-8 rounded-xl shadow-md hover:scale-105 hover:shadow-xl transition"
               target="_blank"
               rel="noopener noreferrer"
@@ -268,9 +268,9 @@ const App = () => {
       {/* Info Sections */}
       <section id="about" className="bg-gradient-to-br from-blue-100 to-blue-200 dark:from-gray-800 dark:to-gray-900 text-gray-800 dark:text-gray-100 py-20 px-6">
         <div className="max-w-4xl mx-auto bg-white/70 dark:bg-gray-800/70 p-8 rounded-2xl shadow-lg backdrop-blur-sm">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">What is the Louisiana Mesh Community?</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4">What is the Gulf Coast Mesh?</h2>
           <p className="text-lg leading-relaxed">
-            The Louisiana Mesh Community is a growing group of individuals dedicated to interconnecting Louisiana&apos;s cities with a decentralized, open-source messaging system. Providing a resilient communication channel that helps families stay together and communicate with others even when infrastructure is damaged from natural disasters.
+            The Gulf Coast Mesh is a growing group of individuals dedicated to interconnecting Louisiana&apos;s cities and other's along the Gulf Coast with a decentralized, open-source messaging system. Providing a resilient communication channel that helps families stay together and communicate with others even when infrastructure is damaged from natural disasters.
           </p>
         </div>
       </section>
@@ -308,7 +308,7 @@ const App = () => {
       <section id="Sign up for our newsletter" className="bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 text-gray-800 dark:text-gray-100 py-20 px-6">
         <div className="max-w-4xl mx-auto bg-white/70 dark:bg-gray-800/70 p-8 rounded-2xl shadow-lg backdrop-blur-sm">
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            <a href="https://louisianamesh.org/emailsignup" className="hover:text-indigo-300 transition underline underline-offset-4">
+            <a href="https://gulfcoastmesh.org/emailsignup" className="hover:text-indigo-300 transition underline underline-offset-4">
               Sign up for our newsletter
             </a>
           </h2>
@@ -337,7 +337,7 @@ const App = () => {
               <a href="https://github.com/LouisianaMeshCommunity/Website" target="_blank" rel="noopener noreferrer" className="hover:text-white transition" aria-label="GitHub">
                 <Icon className="h-6 w-6 invert" src="https://www.svgrepo.com/show/512317/github-142.svg" alt="GitHub" />
               </a>
-              <a href="https://discord.louisianamesh.org" target="_blank" rel="noopener noreferrer" className="hover:text-white transition" aria-label="Discord">
+              <a href="https://discord.gulfcoastmesh.org" target="_blank" rel="noopener noreferrer" className="hover:text-white transition" aria-label="Discord">
                 <Icon className="h-6 w-6 invert" src="https://www.svgrepo.com/show/473585/discord.svg" alt="Discord" />
               </a>
               <a href="https://ko-fi.com/louisianameshcommunity" target="_blank" rel="noopener noreferrer" className="hover:text-white transition" aria-label="Ko-fi">

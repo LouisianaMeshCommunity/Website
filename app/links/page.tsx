@@ -43,9 +43,9 @@ type NavbarProps = {
 
 const navLinks = [
   { label: "Home", href: "/" },
-  { label: "Docs", href: "https://docs.louisianamesh.org" },
+  { label: "Docs", href: "https://docs.gulfcoastmesh.org" },
   { label: "Mesh Map", href: "/meshmap" },
-  { label: "Discord", href: "https://discord.louisianamesh.org", external: true },
+  { label: "Discord", href: "https://discord.gulfcoastmesh.org", external: true },
   { label: "GitHub", href: "https://github.com/LouisianaMeshCommunity/Website", external: true },
 ];
 
@@ -59,7 +59,7 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
           href="/"
           className="text-xl font-bold text-white drop-shadow dark:text-gray-100"
         >
-          LA Mesh
+          Gulf Mesh
         </Link>
 
         {/* Desktop Menu */}
@@ -227,7 +227,7 @@ const LinksPage = () => {
       ),
     },
     {
-      title: "Support Lousiana Mesh Community",
+      title: "Support Gulf Coast Mesh",
       description: "A place to buy stickers and dontate to the community.",
       url: "https://ko-fi.com/louisianameshcommunity",
       icon: (
@@ -247,7 +247,7 @@ const LinksPage = () => {
           {/* Main Content */}
           <header className="text-center mb-12">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-800 dark:text-white mb-4 drop-shadow-lg">
-              LA Mesh Links
+              Gulf Mesh Links
             </h1>
             <p className="text-lg text-gray-700 dark:text-gray-300">
               A curated collection of resources for the Louisiana Mesh community.
