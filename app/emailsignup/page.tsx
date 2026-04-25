@@ -62,7 +62,7 @@ export default function EmailSignupPage() {
 
     try {
       // Using 'no-cors' mode to bypass potential pre-flight blocks
-      await fetch("https://lists.gulfcoastmesh.org/subscription/form", {
+      await fetch("https://lists.louisianamesh.org/subscription/form", {
         method: "POST",
         mode: "no-cors", 
         headers: {
