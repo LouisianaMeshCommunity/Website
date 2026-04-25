@@ -44,9 +44,9 @@ type NavbarProps = {
 // Shared nav links
 const navLinks = [
   { label: "Home", href: "/" },
-  { label: "Docs", href: "https://docs.louisianamesh.org" },
+  { label: "Docs", href: "https://docs.gulfcoastmesh.org" },
   { label: "Mesh Map's", href: "/meshmap" },
-  { label: "Discord", href: "https://discord.louisianamesh.org", external: true },
+  { label: "Discord", href: "https://discord.gulfcoastmesh.org", external: true },
   { label: "GitHub", href: "https://github.com/LouisianaMeshCommunity", external: true },
 ];
 
@@ -60,7 +60,7 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
           href="/"
           className="text-xl font-bold text-white drop-shadow dark:text-gray-100"
         >
-          LA Mesh
+          Gulf Mesh
         </Link>
 
         {/* Desktop Menu */}
@@ -201,10 +201,10 @@ const LinksContent = () => {
         {/* Main Content */}
         <header className="text-center mb-12">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-800 dark:text-white mb-4 drop-shadow-lg">
-            Louisiana Mesh Community Map
+            Gulf Coast Mesh Map
           </h1>
           <p className="text-lg text-gray-700 dark:text-gray-300">
-            A map powered by the LA Mesh community.
+            A map powered by the Gulf Coast Mesh.
           </p>
         </header>
 
@@ -212,7 +212,7 @@ const LinksContent = () => {
         <div className="grid grid-cols-1 gap-6">
           {/* Explorer Bar */}
           <a
-            href="https://explorer.louisianamesh.org/"
+            href="https://explorer.gulfcoastmesh.org/"
             target="_blank"
             rel="noopener noreferrer"
             className="group flex items-center justify-between p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 border-b-4 border-emerald-500 hover:border-emerald-400"
@@ -226,13 +226,13 @@ const LinksContent = () => {
             </div>
             {/* Right side: Description */}
             <div className="flex-1 ml-6 text-right text-gray-600 dark:text-gray-400">
-              Our Primary Meshcore Network, and map to view live trafic around Lousiana.
+              Our Primary Meshcore Network, and map to view live trafic around Coast.
             </div>
           </a>
 
           {/* Meshview Bar */}
           <a
-            href="https://meshview.louisianamesh.org/"
+            href="https://meshview.gulfcoastmesh.org/"
             target="_blank"
             rel="noopener noreferrer"
             className="group flex items-center justify-between p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 border-b-4 border-indigo-500 hover:border-indigo-400"
@@ -246,7 +246,7 @@ const LinksContent = () => {
             </div>
             {/* Right side: Description */}
             <div className="flex-1 ml-6 text-right text-gray-600 dark:text-gray-400">
-              Our Secondary Meshtastic Network Map, to view live trafic in local areas in Louisiana.
+              Our Secondary Meshtastic Network Map, to view live trafic in local areas; primarily Louisiana.
             </div>
           </a>
         </div>
@@ -299,7 +299,7 @@ const LinksContent = () => {
               <li>
                 Server Address:{" "}
                 <code className="font-mono bg-gray-200 dark:bg-gray-700 p-1 rounded">
-                  mqtt.louisianamesh.org
+                  mqtt.gulfcoastmesh.org
                 </code>
               </li>
               <li>
