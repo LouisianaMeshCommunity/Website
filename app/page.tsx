@@ -270,7 +270,7 @@ const App = () => {
         <div className="max-w-4xl mx-auto bg-white/70 dark:bg-gray-800/70 p-8 rounded-2xl shadow-lg backdrop-blur-sm">
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">What is the Gulf Coast Mesh?</h2>
           <p className="text-lg leading-relaxed">
-            The Gulf Coast Mesh is a growing group of individuals dedicated to interconnecting Louisiana&apos;s cities and other's along the Gulf Coast with a decentralized, open-source messaging system. Providing a resilient communication channel that helps families stay together and communicate with others even when infrastructure is damaged from natural disasters.
+            The Gulf Coast Mesh is a growing group of individuals dedicated to interconnecting Louisiana&apos;s cities and others&apos; along the Gulf Coast with a decentralized, open-source messaging system. Providing a resilient communication channel that helps families stay together and communicate with others even when infrastructure is damaged from natural disasters.
           </p>
         </div>
       </section>
